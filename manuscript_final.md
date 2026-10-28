@@ -11,13 +11,7 @@
 
 ## ABSTRACT
 
-**Background:** Wnt/β-catenin signaling has been implicated in the pathogenesis of neuropathic pain (NP) (Zhang et al., 2013; Itokazu et al., 2014), and NLRP3 inflammasome-mediated pyroptosis is a recognized neuroinflammatory mechanism (Bortolotti et al., 2018). Whether Wnt–pyroptosis convergence occurs in specific spinal-cord cell types, and to what extent astrocytes versus microglia contribute, remains an open question. The present study computationally explores the cell-type specificity of Wnt and pyroptosis signaling at single-cell resolution and systematically catalogs pharmacological candidates targeting these nodes.
-
-**Methods:** Parallel computational analyses of publicly available data were performed, with acknowledged limitations for each: (1) single-dataset differential expression of one rat spinal-cord bulk RNA-seq cohort (GSE217932; n=4 per condition) with no independent replication; (2) single-cell RNA-seq analysis (GSE134003, mouse SNI spinal cord) with CellChat ligand–receptor detection and pseudotime trajectory inference; (3) high-confidence STRING protein–protein interaction network analysis; (4) descriptive three-tier drug–target classification based on DrugBank annotations (no statistical testing performed due to incomplete target coverage); (5) weighted gene co-expression network analysis (WGCNA) for exploratory module detection (no independent replication available); and (6) structural analysis of four PDB structures (MD simulations not completed; binding energies sourced from published literature). Negative and null results are explicitly reported throughout.
-
-**Results:** Of 32 Wnt pathway genes tested, 8 were differentially expressed and 20 were not at an exploratory nominal threshold, indicating pathway-level rather than universal gene-level activation. For pyroptosis, 15 of 16 pathway genes were detected and 6 were differentially expressed. WGCNA across variable genes identified co-expression modules; Wnt/pyroptosis genes distributed across several modules. Full-transcriptome single-cell analysis showed that pyroptosis genes (Nlrp3, Gsdmd, Casp1) were expressed predominantly in microglia and macrophages (≈88% and ≈80% detection), whereas astrocytes showed low pyroptosis expression (25% detection) with no significant SNI-versus-SI change at the animal level; Wnt signaling genes were more broadly distributed. CellChat detected Wnt-Fzd ligand–receptor pairs between astrocytes and neurons/microglia. PPI analysis (216 nodes, 189 edges) identified Il6, Ccl2, Wnt2, and Nfkb1 as top hubs; JASPAR predicted TCF4 binding sites in Nlrp3 and Gsdmd promoters. Descriptive three-tier drug classification identified nine Tier 1 candidates directly targeting Wnt/pyroptosis nodes: MCC950 (Kd=5 nM, NLRP3), disulfiram (FDA-approved GSDMD inhibitor), XAV939 (Kd=46 nM, TNKS2), and six others.
-
-**Conclusions:** This computational, hypothesis-generating study finds that, in GSE134003, pyroptosis signaling localizes to microglia/macrophages rather than astrocytes, and that astrocyte-specific Wnt–pyroptosis co-activation is not supported by the current single-cell data; the originally hypothesized astrocyte mechanism remains experimentally untested. The study accompanies a descriptive drug-candidate catalog. All findings are computational predictions requiring independent experimental validation. Key limitations include: a single bulk RNA-seq cohort without independent replication; small sample sizes (n=4 per condition); an scRNA-seq cohort from a different species/model than the bulk cohort; incomplete drug-target data (descriptive classification only); MD simulations not completed; and weak bulk differential-expression signal (only 2 genes significant after multiple-testing correction). No simulated data were used.
+Neuropathic pain involves neuroinflammatory signalling, but whether Wnt/β-catenin and NLRP3-inflammasome-mediated pyroptosis converge in specific spinal-cord cell types is unresolved. We performed a computational, hypothesis-generating re-analysis of publicly available data: one rat spinal-cord bulk RNA-seq cohort (GSE217932; n=4 per condition, no independent replication) and one mouse spared-nerve-injury single-cell RNA-seq cohort (GSE134003), together with STRING protein–protein interactions, DrugBank annotations, and four Protein Data Bank structures. Bulk analysis showed no significant Wnt/β-catenin enrichment after correction (NES ≈ −1.6, nominal p ≈ 0.03). Single-cell analysis localized pyroptosis gene expression (Nlrp3, Gsdmd, Casp1) predominantly to microglia and macrophages, whereas astrocytes showed low pyroptosis expression without injury-associated change; astrocyte-specific Wnt–pyroptosis co-activation was not supported. Protein–protein interaction analysis (216 nodes, 189 edges) identified Il6, Ccl2, Wnt2, Nfkb1 and Rela as top hubs. A descriptive three-tier classification nominated nine Tier-1 drug candidates, including MCC950 (NLRP3, Kd=5 nM), disulfiram (GSDMD) and XAV939 (TNKS2, Kd=46 nM). Reported limitations include a single bulk cohort without replication, small samples, cross-species data and absent wet-lab validation; all findings are computational predictions requiring experimental confirmation, and no simulated data were used.
 
 ---
 
@@ -123,7 +117,7 @@ An ARACNe-style GRN from GSE217932 (Spearman |rho|>0.75, no permutation FDR) was
 
 ### 3.10 Structural Analysis: Literature Binding Energies, MD Not Completed
 
-Four PDB structures were prepared and inspected: 7PZC (NLRP3 NACHT domain), 6N9O (CTNNB1/β-catenin), 1JDH (TNKS2 tankyrase-2), and 3UA9 (GSDMD pore). Published experimental binding data are reported: MCC950–NLRP3 Kd=5 nM (Coll et al., 2019); XAV939–TNKS2 Kd=46 nM (Huang et al., 2009). MD simulations were not completed for any of the four structures (0/4); no new binding-energy calculations were performed.
+Four PDB structures were prepared and inspected: 7PZC (NLRP3 NACHT domain), 6N9O (CTNNB1/β-catenin), 1JDH (TNKS2 tankyrase-2), and 3UA9 (GSDMD pore). Published experimental binding data are reported: MCC950–NLRP3 Kd=5 nM (Coll et al., 2019); XAV939–TNKS2 Kd=46 nM (Huang et al., 2009). MD simulations were not completed for any of the four structures (0/4); no new binding-energy calculations were performed (structural details and literature binding affinities are provided in Supplementary Figure S1).
 
 ## 4. DISCUSSION
 
@@ -153,13 +147,43 @@ Beyond the negative findings detailed in Section 4.3, we acknowledge the followi
 4. **Data reuse.** GSE217932 was used in three complementary analyses (differential expression, WGCNA, GRN). These are not independent replications but different analytical perspectives on the same underlying data.
 5. **Cross-species integration.** Rat bulk transcriptomic data, mouse scRNA-seq data, and human structural/pharmacology data were integrated. Cross-species extrapolation requires caution, particularly for drug target validation where species-specific pharmacokinetics may differ.
 6. **scRNA-seq gene-set restriction (corrected by full-transcriptome re-analysis).** An earlier version of this analysis pre-filtered the single-cell input to 140 Wnt/pyroptosis-related genes before annotation, which can artifactually define cell-type specificity. The single-cell conclusions reported here were therefore recomputed across the full 14,700-gene transcriptome and assessed at the animal level (n=19 animals), which showed pyroptosis enrichment in microglia/macrophages rather than astrocytes. Cell-type identity and cross-pathway dominance should still be confirmed in an independent cohort.
-7. **No simulated data were used.** All analyses use real, publicly available datasets. No synthetic or simulated data were generated.
+7. **No simulated data were used.** All analyses use real, publicly available datasets. No synthetic or simulated data were generated. The scope, limitations, and reproducibility posture of each analytical module are summarized in a self-audit matrix (Supplementary Figure S2).
 
 ### 4.5 Future Directions
 
 **Experimental validation priorities.** (1) Astrocyte-specific Ctnnb1 conditional knockout (GFAP-CreERT2; Ctnnb1 flox/flox) in the SNI model, with behavioral pain endpoints (von Frey, Hargreaves) and NLRP3/GSDMD expression measurement by qPCR and Western blot. (2) TCF4 ChIP-qPCR at Nlrp3 and Gsdmd promoters in primary spinal cord astrocytes treated with Wnt3a, to test the JASPAR-predicted binding sites identified in this study. (3) Preclinical evaluation of MCC950 (10 mg/kg, i.p.) and disulfiram (50 mg/kg, i.p.) in a rodent SNI model, prioritized from Tier 1 of our drug classification. (4) Orthogonal measurement (e.g., immunohistochemistry or flow cytometry) of astrocyte abundance to confirm the deconvolution estimate.
 
 **Computational refinement priorities.** (1) Analysis of a second, genuinely independent bulk NP transcriptomic cohort to test reproducibility of the Wnt/pyroptosis signal. (2) WGCNA module preservation analysis in larger independent NP cohorts (n≥20 per condition) to overcome the instability observed at the current sample size. (3) Complete DrugBank REST API query for unbiased drug-target enrichment with full target annotation. (4) Re-analysis of the scRNA-seq data without the pre-filtering restriction, with sample-level QC and marker validation, to establish astrocyte identity and cross-pathway context. (5) Completion of molecular dynamics simulations for the four drug-target complexes to provide computational binding-energy validation, or replacement with molecular docking scores.
+
+## ACKNOWLEDGMENTS
+
+The author gratefully acknowledges the Gene Expression Omnibus (GEO), the STRING database, DrugBank, and the Protein Data Bank (PDB) for making their resources publicly available. This study would not have been possible without open data sharing.
+
+The author used an AI-assisted language tool (a large language model) solely for English-language polishing and formatting of the manuscript. The scientific design, computational analyses, and all reported results were conceived and executed entirely by the author; the tool performed no analysis and contributed no data, code, or interpretation. No third party submitted this manuscript on the author's behalf.
+
+## AUTHOR CONTRIBUTIONS
+
+YYX: Conceptualization, Data curation, Formal analysis, Investigation, Methodology, Software, Visualization, Writing – original draft, Writing – review & editing. The author confirms being the sole contributor of this work and has approved it for publication.
+
+## STATEMENTS AND DECLARATIONS
+
+### Ethical considerations
+Not applicable. This study is a purely computational re-analysis of publicly available, previously published, and de-identified datasets (Gene Expression Omnibus, STRING, DrugBank, and Protein Data Bank). No human participants were recruited or enrolled, no animal experiments were conducted by the author, and no identifiable individual data were generated or analyzed.
+
+### Consent to participate
+Not applicable.
+
+### Consent for publication
+Not applicable.
+
+### Declaration of conflicting interests
+The author declares that there are no potential conflicts of interest with respect to the research, authorship, and/or publication of this article.
+
+### Funding
+This study was conducted without external funding.
+
+### Data availability
+All datasets analyzed are publicly available: bulk RNA-seq GSE217932 and single-cell RNA-seq GSE134003 (Gene Expression Omnibus, https://www.ncbi.nlm.nih.gov/geo/); protein structures 7PZC, 6N9O, 1JDH, 3UA9 (RCSB PDB, https://www.rcsb.org/); protein–protein interaction data from STRING (https://string-db.org/); drug-target annotations from DrugBank (https://go.drugbank.com/). No new experimental data were generated. All processed data files and analysis code are deposited in the public, version-tagged reproducibility repository https://github.com/yyx-4113/astrocytic-wnt-pyroptosis-np. No "available on request" clause is used; all materials are openly accessible.
 
 ## REFERENCES
 
@@ -192,33 +216,6 @@ Beyond the negative findings detailed in Section 4.3, we acknowledge the followi
 
 ---
 
-## DATA AVAILABILITY STATEMENT
-
-All datasets analyzed in this study are publicly available. Bulk RNA-seq data: GSE217932 (Gene Expression Omnibus, GEO; https://www.ncbi.nlm.nih.gov/geo/). Single-cell RNA-seq data: GSE134003 (GEO; https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE134003). Protein structures: PDB accessions 7PZC, 6N9O, 1JDH, and 3UA9 (Research Collaboratory for Structural Bioinformatics Protein Data Bank, RCSB PDB; https://www.rcsb.org/). Protein-protein interaction data: STRING database (https://string-db.org/). Drug target annotations: DrugBank (https://go.drugbank.com/). No new experimental data were generated. All processed data files (differential expression results, WGCNA module assignments, drug-target classifications) and analysis code are deposited in the public reproducibility repository (GitHub: https://github.com/yyx-4113/astrocytic-wnt-pyroptosis-np), which is publicly accessible and version-tagged. No "available on request" clause is used; all materials are openly accessible.
-
-## AUTHOR CONTRIBUTIONS
-
-YYX: Conceptualization, Data curation, Formal analysis, Investigation, Methodology, Software, Visualization, Writing – original draft, Writing – review & editing. The author confirms being the sole contributor of this work and has approved it for publication.
-
-## FUNDING
-
-This study was conducted without external funding.
-
-## CONFLICT OF INTEREST
-
-The author declares that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
-
-## DECLARATIONS
-
-This study is a purely computational analysis based exclusively on publicly available, previously published, and de-identified datasets (Gene Expression Omnibus, STRING, DrugBank, and Protein Data Bank). No human participants were recruited or enrolled, no animal experiments were conducted by the author, and no identifiable individual data were generated or analyzed. Accordingly:
-
-**Ethics and Consent to Participate declarations:** not applicable.
-
-**Consent to Publish declaration:** not applicable.
-
-## ACKNOWLEDGMENTS
-
-The author gratefully acknowledges the Gene Expression Omnibus (GEO), the STRING database, DrugBank, and the Protein Data Bank (PDB) for making their resources publicly available. This study would not have been possible without open data sharing.
 
 ---
 
@@ -244,9 +241,9 @@ The author gratefully acknowledges the Gene Expression Omnibus (GEO), the STRING
 
 **Figure 9 – Gene Regulatory Network and Virtual Perturbation Analysis (Exploratory; n=12; No FDR).** (A) ARACNe-style GRN from GSE217932 (Spearman |rho|>0.75, DPI epsilon=0.15). Wnt genes in blue; pyroptosis genes in red; inferred regulators in gray. (B) Virtual KO impact scores by RWR perturbation. Tcf4 and Ctnnb1 identified as high-impact hubs. (C) Virtual OE seed-weight perturbation (+2.0 SD) of Wnt/β-catenin nodes: RWR propagation reaches pyroptosis genes (e.g., Il1b RWR = 0.011, Gsdmd RWR = 0.009, Nlrp3 RWR = 0.007). (D) Virtual KD (−2.0 SD) of Tcf4: reduced propagation to the same pyroptosis genes. All scores are RWR network-propagation outputs (hypothesis-generating only).
 
-**Figure 10 – Structural Analysis of Drug-Target Complexes (Literature Binding Energies; MD Not Completed).** (A) PDBFixer-remediated PDB structures: 7PZC (NLRP3 NACHT domain, 118 kDa), 6N9O (CTNNB1/β-catenin, 86 kDa), 1JDH (TNKS2 tankyrase-2, 71 kDa), 3UA9 (GSDMD pore, 53 kDa). (B) Published experimental binding affinities (Kd, nM): MCC950–NLRP3 Kd=5 nM (Coll et al., 2019); XAV939–TNKS2 Kd=46 nM (Huang et al., 2009). (C) Molecular-dynamics simulation status: 0/4 completed; no new binding-energy calculations were performed (literature values used).
+**Supplementary Figure S1 – Structural Analysis of Drug-Target Complexes (Literature Binding Energies; MD Not Completed).** (A) PDBFixer-remediated PDB structures: 7PZC (NLRP3 NACHT domain, 118 kDa), 6N9O (CTNNB1/β-catenin, 86 kDa), 1JDH (TNKS2 tankyrase-2, 71 kDa), 3UA9 (GSDMD pore, 53 kDa). (B) Published experimental binding affinities (Kd, nM): MCC950–NLRP3 Kd=5 nM (Coll et al., 2019); XAV939–TNKS2 Kd=46 nM (Huang et al., 2009). (C) Molecular-dynamics simulation status: 0/4 completed; no new binding-energy calculations were performed (literature values used).
 
-**Figure 11 – Reproducibility and Limitation Self-Audit.** A compliance matrix summarizing, for each analytical module (rows, keyed to the methods sections), the extent to which the study addressed five reproducibility and scientific-strictness dimensions (columns): sample size, independent replication, multiple-testing control, reporting of negative/null results, and code/data sharing. Green tick = explicitly addressed with adequate power; amber triangle = partially addressed or explicitly discussed as a limitation; red cross = not applicable or absent in this study. A bottom "Summary" row reports the weighted compliance rate per dimension (%), and a right-hand "Score" column reports the weighted compliance rate per module (%), making the scope and limits of the evidence explicit. Note: the study analyses a single bulk cohort and therefore scores "independent replication" as not applicable/absent for bulk-derived modules; the self-audit is a transparency instrument, not evidence of replication.
+**Supplementary Figure S2 – Reproducibility and Limitation Self-Audit.** A compliance matrix summarizing, for each analytical module (rows, keyed to the methods sections), the extent to which the study addressed five reproducibility and scientific-strictness dimensions (columns): sample size, independent replication, multiple-testing control, reporting of negative/null results, and code/data sharing. Green tick = explicitly addressed with adequate power; amber triangle = partially addressed or explicitly discussed as a limitation; red cross = not applicable or absent in this study. A bottom "Summary" row reports the weighted compliance rate per dimension (%), and a right-hand "Score" column reports the weighted compliance rate per module (%), making the scope and limits of the evidence explicit. Note: the study analyses a single bulk cohort and therefore scores "independent replication" as not applicable/absent for bulk-derived modules; the self-audit is a transparency instrument, not evidence of replication.
 
 ---
 
