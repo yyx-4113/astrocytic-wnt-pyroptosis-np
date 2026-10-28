@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the manuscript and this repository."
+title: "Computational re-analysis of convergent Wnt/beta-catenin and pyroptosis signaling in neuropathic pain, with single-cell resolution of cell-type specificity"
+authors:
+  - family-names: Yang
+    given-names: Yong-Xin
+    orcid: "https://orcid.org/0009-0004-9698-6552"
+repository-code: "https://github.com/yyx-4113/astrocytic-wnt-pyroptosis-np"
+license: MIT
+keywords:
+  - neuropathic pain
+  - Wnt/beta-catenin
+  - pyroptosis
+  - bioinformatics
+  - reproducible research

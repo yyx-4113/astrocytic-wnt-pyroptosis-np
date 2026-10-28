@@ -1,0 +1,26 @@
+{
+  "network_nodes": 216,
+  "network_edges": 189,
+  "network_density": 0.00813953488372093,
+  "avg_clustering": 0.13870376204526533,
+  "top_hub_genes": [
+    "Il6",
+    "Ccl2",
+    "Wnt2",
+    "Nox4",
+    "Rela",
+    "Nfkb1",
+    "Jun",
+    "Tnfrsf1b",
+    "Relb",
+    "Tlr4"
+  ],
+  "tcf4_target_genes": [
+    "Ccl2",
+    "Il6",
+    "Jun",
+    "Nfkb1",
+    "Sfrp1",
+    "Tlr4"
+  ]
+}

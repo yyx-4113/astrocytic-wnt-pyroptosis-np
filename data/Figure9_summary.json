@@ -1,0 +1,32 @@
+{
+  "network_nodes": 250,
+  "network_edges": 1590,
+  "wnt_seeds": 28,
+  "pyro_seeds": 15,
+  "top_rwr_wnt": [
+    "Nlrc4",
+    "Pycard",
+    "Il1b",
+    "Gzma",
+    "Gsdmd",
+    "Casp1",
+    "Sfrp1",
+    "Relb",
+    "Wnt2",
+    "Wnt7a"
+  ],
+  "top_ko_disruptors": [
+    "Wnt4",
+    "Cops5",
+    "Anxa2",
+    "Got1",
+    "Wnt2",
+    "Il1b",
+    "Casp1",
+    "Ctnnb1",
+    "Fzd3",
+    "Porcn"
+  ],
+  "edge_threshold": 0.75,
+  "correlation_method": "Spearman"
+}

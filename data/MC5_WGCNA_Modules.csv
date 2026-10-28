@@ -1,0 +1,12 @@
+gene,pathway,module,module_size
+Ccnd1,Wnt,M8,886
+Ctnnb1,Wnt,M8,886
+Dkk3,Wnt,M8,886
+Dvl1,Wnt,M8,886
+Dvl3,Wnt,M3,905
+Fzd10,Wnt,M7,1140
+Fzd3,Wnt,M3,905
+Gsk3b,Wnt,M3,905
+Nfkb1,Pyroptosis,M9,585
+Tcf4,Wnt,M7,1140
+Wnt7a,Wnt,M3,905

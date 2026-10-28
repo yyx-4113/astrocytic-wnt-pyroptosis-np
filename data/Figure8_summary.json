@@ -1,0 +1,6 @@
+{
+  "n_drugs": 20,
+  "n_pubchem_verified": 0,
+  "total_pubchem_targets": 0,
+  "source": "PubChem PUG-REST (real-time API)"
+}

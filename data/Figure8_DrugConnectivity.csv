@@ -1,0 +1,21 @@
+drug,cmap_score,class,approved,n_targets,wnt_targets,pyro_targets,pubchem_verified
+XAV939,-0.65,Wnt Inhibitor,False,2,2,0,False
+Disulfiram,-0.5,GSDMD Inhibitor,True,2,0,1,False
+KYA1797K,-0.5,Wnt Destabilizer,False,1,1,0,False
+PRI724,-0.5,Wnt/CBP Inhibitor,False,2,1,0,False
+LGK974,-0.5,Wnt/PORCN Inhibitor,False,1,1,0,False
+MCC950,-0.5,NLRP3 Inhibitor,False,1,0,1,False
+CY09,-0.5,NLRP3 Inhibitor,False,1,0,1,False
+VX765,-0.5,Caspase-1 Inhibitor,False,1,0,1,False
+ICG001,-0.5,Wnt/CBP Inhibitor,False,2,1,0,False
+IWR1,-0.5,Wnt Inhibitor,False,1,1,0,False
+LY2090314,-0.25,GSK3 Inhibitor,False,1,1,0,False
+Ruxolitinib,-0.1,JAK Inhibitor,True,2,0,0,False
+Gabapentin,-0.1,Anticonvulsant,True,2,0,0,False
+Tramadol,-0.1,Opioid/SNRI,True,2,0,0,False
+Amitriptyline,-0.1,TCA,True,3,0,0,False
+Venlafaxine,-0.1,SNRI,True,2,0,0,False
+Duloxetine,-0.1,SNRI,True,2,0,0,False
+Pregabalin,-0.1,Anticonvulsant,True,2,0,0,False
+Tofacitinib,-0.1,JAK Inhibitor,True,2,0,0,False
+Capsaicin,-0.1,TRPV1 Agonist,True,1,0,0,False

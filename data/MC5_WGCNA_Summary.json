@@ -1,0 +1,28 @@
+{
+  "dataset": "GSE217932",
+  "note": "WGCNA module ASSIGNMENT on the single genuine rat bulk cohort (n=12, n=4 per primary contrast). Module PRESERVATION across an independent dataset was NOT assessed because no independent bulk NP cohort exists; the Langfelder et al. (2011) Z-summary therefore was not computed. The earlier MC5_WGCNA_Preservation.csv (Z_summary = 1.0 for all modules) was forged by comparing GSE217932 against its own duplicate GSE186237 and has been deleted.",
+  "n_genes_analyzed": 5000,
+  "n_modules": 9,
+  "module_sizes": {
+    "M1": 22,
+    "M2": 26,
+    "M3": 905,
+    "M4": 2,
+    "M5": 1395,
+    "M6": 39,
+    "M7": 1140,
+    "M8": 886,
+    "M9": 585
+  },
+  "n_wnt_genes_in_set": 10,
+  "n_pyroptosis_genes_in_set": 1,
+  "wnt_pyroptosis_module_distribution": {
+    "M3": 4,
+    "M7": 2,
+    "M8": 4,
+    "M9": 1
+  },
+  "method": "Signed WGCNA, Spearman correlation, soft-threshold beta=6, top 5000 variable genes, min module size=30 (original pipeline_mc5 run on GSE217932 only)",
+  "interpretation": "Exploratory; modules are descriptive and not replicated.",
+  "caution": "n=12 total (n=4 per contrast) limits reliability; interpret qualitatively."
+}

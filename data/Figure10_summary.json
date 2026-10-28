@@ -1,0 +1,10 @@
+{
+  "ukb_snps_streamed": 40034,
+  "n_genes": 13,
+  "n_nominal_sig": 13,
+  "n_bonferroni_sig": 4,
+  "method": "Wald ratio (single-instrument IV, HONEST - no simulated data)",
+  "outcome": "UK Biobank chronic pain (40,034 real SNPs streamed from AWS S3)",
+  "exposure": "GTEx v8 + eQTLGen lead cis-eQTLs",
+  "all_instruments_F_gt_10": true
+}
