@@ -187,32 +187,30 @@ All datasets analyzed are publicly available: bulk RNA-seq GSE217932 and single-
 
 ## REFERENCES
 
-1. van Hecke O, Austin SK, Khan RA, Smith BH, Torrance N. Neuropathic pain in the general population: a systematic review of epidemiological studies. Pain. 2014;155(4):654-662. doi:10.1016/j.pain.2013.11.013
-2. Finnerup NB, Attal N, Haroutounian S, et al. Pharmacotherapy for neuropathic pain in adults: a systematic review and meta-analysis. Lancet Neurol. 2015;14(2):162-173. doi:10.1016/S1474-4422(14)70251-0
-3. Zhang YK, Huang ZJ, Liu S, Liu YP, Song AA, Song XJ. WNT signaling underlies the pathogenesis of neuropathic pain in rodents. J Clin Invest. 2013;123(5):2268-2286. doi:10.1172/JCI65364
-4. Itokazu T, Hayano Y, Yamashita T, et al. Involvement of Wnt/β-catenin signaling in the development of neuropathic pain. Neurosci Res. 2014;80:18-23. doi:10.1016/j.neures.2013.12.002
-5. Bortolotti P, Faure E, Kipnis E. Inflammasomes in tissue damages and immune disorders after trauma. Front Immunol. 2018;9:1900. doi:10.3389/fimmu.2018.01900
-6. Wolf FA, Angerer P, Theis FJ. SCANPY: large-scale single-cell gene expression data analysis. Genome Biol. 2018;19(1):15. doi:10.1186/s13059-017-1382-0
-7. Eastman P, Swails J, Chodera JD, et al. OpenMM 7: Rapid development of high performance algorithms for molecular dynamics. PLoS Comput Biol. 2017;13(7):e1005659. doi:10.1371/journal.pcbi.1005659
-8. Kolde R, Laur S, Adler P, Vilo J. Robust rank aggregation for gene list integration and meta-analysis. Bioinformatics. 2012;28(4):573-580. doi:10.1093/bioinformatics/btr709
-9. Langfelder P, Horvath S. WGCNA: an R package for weighted correlation network analysis. BMC Bioinformatics. 2008;9:559. doi:10.1186/1471-2105-9-559
-10. Langfelder P, Luo R, Oldham MC, Horvath S. Is my network module preserved and reproducible? PLoS Comput Biol. 2011;7(1):e1001057. doi:10.1371/journal.pcbi.1001057
-11. Jin S, Guerrero-Juarez CF, Zhang L, et al. Inference and analysis of cell-cell communication using CellChat. Nat Commun. 2021;12(1):1088. doi:10.1038/s41467-021-21246-9
-12. Cao J, Spielmann M, Qiu X, et al. The single-cell transcriptional landscape of mammalian organogenesis. Nature. 2019;566(7745):496-502. doi:10.1038/s41586-019-0969-x
-13. Newman AM, Steen CB, Liu CL, et al. Determining cell type abundance and expression from bulk tissues with digital cytometry. Nat Biotechnol. 2019;37(7):773-782. doi:10.1038/s41587-019-0114-2
-14. Szklarczyk D, Kirsch R, Koutrouli M, et al. The STRING database in 2023. Nucleic Acids Res. 2023;51(D1):D638-D646. doi:10.1093/nar/gkac1000
-15. Castro-Mondragon JA, Riudavets-Puig R, Rauluseviciute I, et al. JASPAR 2022. Nucleic Acids Res. 2022;50(D1):D165-D173. doi:10.1093/nar/gkab1113
-16. Wishart DS, Feunang YD, Guo AC, et al. DrugBank 5.0: a major update. Nucleic Acids Res. 2018;46(D1):D1074-D1082. doi:10.1093/nar/gkx1037
-17. Margolin AA, Nemenman I, Basso K, et al. ARACNE. BMC Bioinformatics. 2006;7(Suppl 1):S7. doi:10.1186/1471-2105-7-S1-S7
-18. GTEx Consortium. The GTEx Consortium atlas of genetic regulatory effects across human tissues. Science. 2020;369(6509):1318-1330. doi:10.1126/science.aaz1776
-19. Vosa U, Claringbould A, Westra HJ, et al. Large-scale cis- and trans-eQTL analyses. Nat Genet. 2021;53(9):1300-1310. doi:10.1038/s41588-021-00913-z
-20. Eastman P, Behara PK, Bhethanabotla VR, et al. SPICE, a generated dataset of 2.5M density functional theory and ab initio calculations for data-driven force fields. Sci Data. 2023;10:11. doi:10.1038/s41597-022-01882-6
-21. Coll RC, Hill JR, Day CJ, et al. MCC950 directly targets the NLRP3 ATP-hydrolysis motif for inflammasome inhibition. Nat Chem Biol. 2019;15(6):556-559. doi:10.1038/s41589-019-0277-7
-22. Hu JJ, Liu X, Xia S, et al. FDA-approved disulfiram inhibits pyroptosis by blocking gasdermin D pore formation. Nat Immunol. 2020;21(7):736-745. doi:10.1038/s41590-020-0669-6
-23. Huang SM, Mishina YM, Liu S, et al. Tankyrase inhibition stabilizes axin and antagonizes Wnt signalling. Nature. 2009;461(7264):614-620. doi:10.1038/nature08356
-24. Landrum G. RDKit: Open-Source Cheminformatics Software. 2024. https://www.rdkit.org/
-25. Decosterd I, Woolf CJ. Spared nerve injury: an animal model of persistent peripheral neuropathic pain. Pain. 2000;87(2):149-158.
-26. Ji RR, Donnelly CR, Nedergaard M. Astrocytes in chronic pain and itch. Nat Rev Neurosci. 2019;20(11):667-685. doi:10.1038/s41583-019-0218-1
+Bortolotti P, Faure E, Kipnis E. Inflammasomes in tissue damages and immune disorders after trauma. Front Immunol. 2018;9:1900. doi:10.3389/fimmu.2018.01900
+Cao J, Spielmann M, Qiu X, et al. The single-cell transcriptional landscape of mammalian organogenesis. Nature. 2019;566(7745):496-502. doi:10.1038/s41586-019-0969-x
+Castro-Mondragon JA, Riudavets-Puig R, Rauluseviciute I, et al. JASPAR 2022. Nucleic Acids Res. 2022;50(D1):D165-D173. doi:10.1093/nar/gkab1113
+Coll RC, Hill JR, Day CJ, et al. MCC950 directly targets the NLRP3 ATP-hydrolysis motif for inflammasome inhibition. Nat Chem Biol. 2019;15(6):556-559. doi:10.1038/s41589-019-0277-7
+Decosterd I, Woolf CJ. Spared nerve injury: an animal model of persistent peripheral neuropathic pain. Pain. 2000;87(2):149-158.
+Eastman P, Swails J, Chodera JD, et al. OpenMM 7: Rapid development of high performance algorithms for molecular dynamics. PLoS Comput Biol. 2017;13(7):e1005659. doi:10.1371/journal.pcbi.1005659
+Finnerup NB, Attal N, Haroutounian S, et al. Pharmacotherapy for neuropathic pain in adults: a systematic review and meta-analysis. Lancet Neurol. 2015;14(2):162-173. doi:10.1016/S1474-4422(14)70251-0
+Huang SM, Mishina YM, Liu S, et al. Tankyrase inhibition stabilizes axin and antagonizes Wnt signalling. Nature. 2009;461(7264):614-620. doi:10.1038/nature08356
+Hu JJ, Liu X, Xia S, et al. FDA-approved disulfiram inhibits pyroptosis by blocking gasdermin D pore formation. Nat Immunol. 2020;21(7):736-745. doi:10.1038/s41590-020-0669-6
+Itokazu T, Hayano Y, Yamashita T, et al. Involvement of Wnt/beta-catenin signaling in the development of neuropathic pain. Neurosci Res. 2014;80:18-23. doi:10.1016/j.neures.2013.12.002
+Ji RR, Donnelly CR, Nedergaard M. Astrocytes in chronic pain and itch. Nat Rev Neurosci. 2019;20(11):667-685. doi:10.1038/s41583-019-0218-1
+Jin S, Guerrero-Juarez CF, Zhang L, et al. Inference and analysis of cell-cell communication using CellChat. Nat Commun. 2021;12(1):1088. doi:10.1038/s41467-021-21246-9
+Kolde R, Laur S, Adler P, Vilo J. Robust rank aggregation for gene list integration and meta-analysis. Bioinformatics. 2012;28(4):573-580. doi:10.1093/bioinformatics/btr709
+Landrum G. RDKit: Open-Source Cheminformatics Software. 2024. https://www.rdkit.org/
+Langfelder P, Horvath S. WGCNA: an R package for weighted correlation network analysis. BMC Bioinformatics. 2008;9:559. doi:10.1186/1471-2105-9-559
+Langfelder P, Luo R, Oldham MC, Horvath S. Is my network module preserved and reproducible? PLoS Comput Biol. 2011;7(1):e1001057. doi:10.1371/journal.pcbi.1001057
+Margolin AA, Nemenman I, Basso K, et al. ARACNE. BMC Bioinformatics. 2006;7(Suppl 1):S7. doi:10.1186/1471-2105-7-S1-S7
+Newman AM, Steen CB, Liu CL, et al. Determining cell type abundance and expression from bulk tissues with digital cytometry. Nat Biotechnol. 2019;37(7):773-782. doi:10.1038/s41587-019-0114-2
+Squair JW, Gautier M, Kathe C, Anderson MA, James ND, Hutson TH, Hudelle R, Qaiser T, Matson KJE, Barraud Q, Levine AJ, La Manno G, Skinnider MA, Courtine G. Confronting false discoveries in single-cell differential expression. Nat Commun. 2021;12(1):5692. doi:10.1038/s41467-021-25960-2
+Szklarczyk D, Kirsch R, Koutrouli M, et al. The STRING database in 2023. Nucleic Acids Res. 2023;51(D1):D638-D646. doi:10.1093/nar/gkac1000
+van Hecke O, Austin SK, Khan RA, Smith BH, Torrance N. Neuropathic pain in the general population: a systematic review of epidemiological studies. Pain. 2014;155(4):654-662. doi:10.1016/j.pain.2013.11.013
+Wishart DS, Feunang YD, Guo AC, et al. DrugBank 5.0: a major update. Nucleic Acids Res. 2018;46(D1):D1074-D1082. doi:10.1093/nar/gkx1037
+Wolf FA, Angerer P, Theis FJ. SCANPY: large-scale single-cell gene expression data analysis. Genome Biol. 2018;19(1):15. doi:10.1186/s13059-017-1382-0
+Zhang YK, Huang ZJ, Liu S, Liu YP, Song AA, Song XJ. WNT signaling underlies the pathogenesis of neuropathic pain in rodents. J Clin Invest. 2013;123(5):2268-2286. doi:10.1172/JCI65364
 
 ---
 

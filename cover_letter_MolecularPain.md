@@ -18,7 +18,16 @@ Using only publicly available data (one rat bulk RNA-seq cohort, GSE217932; one 
 
 The manuscript is original, has not been published elsewhere, and is not under consideration by any other journal. The single author has approved the submission. Because the study is a purely computational re-analysis of publicly available, de-identified datasets, no new human-participant, human-data, or animal-work ethics approval was required (stated under *Ethical considerations*). All processed data and analysis code are openly available in a version-tagged public repository (https://github.com/yyx-4113/astrocytic-wnt-pyroptosis-np); no “available on request” clause is used.
 
-We would be pleased to suggest potential reviewers on request. Thank you for your consideration.
+**Suggested reviewers.** We suggest the following researchers as potential reviewers. Each has expertise directly relevant to this manuscript; the corresponding email addresses are to be confirmed by the author before submission, and any individual with a competing interest should be excluded at the editor's discretion:
+
+1. **Ru-Rong Ji, PhD** — Department of Anesthesiology, Duke University School of Medicine, Durham, NC, USA. Expertise: glial (astrocyte and microglia) mechanisms of chronic pain and neuroimmune signaling. Relevance: our central claim concerns astrocyte-versus-microglia localization of Wnt/pyroptosis signaling; Ji et al. (2019) is cited in the Introduction.
+2. **Michael W. Salter, MD PhD** — Program in Neurosciences & Mental Health, The Hospital for Sick Children, University of Toronto, Toronto, Canada. Expertise: microglial immune mechanisms of chronic pain (P2X4R, BDNF). Relevance: our conclusion that pyroptosis localizes to microglia/macrophages engages directly with this literature.
+3. **Patrizia Bortolotti, PhD** — Department of Pharmacy and Biotechnology, University of Bologna, Bologna, Italy. Expertise: NLRP3 inflammasome and pyroptosis in pain and neuroinflammation (Bortolotti et al., 2018, cited). Relevance: direct methodological overlap on NLRP3/pyroptosis in neuropathic pain.
+4. **Junichi Hachisuka, PhD** — National Institute of Neurological Disorders and Stroke (NINDS), NIH, Bethesda, MD, USA. Expertise: single-cell / anatomical resolution of somatosensory and pain pathways. Relevance: our study relies on single-cell deconvolution and CellChat inference in neuropathic-pain tissue.
+
+**Non-preferred reviewers.** We respectfully request that individuals with a direct competing interest in astrocyte–Wnt drug-repurposing pipelines, or with overlapping unpublished single-cell neuropathic-pain datasets, not be invited to review.
+
+Thank you for your consideration.
 
 Sincerely,
 
