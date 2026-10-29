@@ -16,12 +16,12 @@ OUT = r'D:/省自然/生信分析/submission/RESCUE_2026-10-29'
 tab = {}
 sets_order = []
 for r in csv.DictReader(open(os.path.join(OUT, 'gsea_three_cohort.csv'), encoding='utf-8')):
-    tab[(r['cohort'], r['gene_set'])] = (float(r['NES']), float(r['nominal_p']), float(r['FDR_q_within_7_sets']))
+    tab[(r['cohort'], r['gene_set'])] = (float(r['NES']), float(r['nominal_p']), float(r['FDR_q_across_sets_in_cohort']))
     if r['gene_set'] not in sets_order:
         sets_order.append(r['gene_set'])
 
 pretty = {
-    'HALLMARK_WNT_BETA_CATENIN': 'Wnt/$\\beta$-catenin (Hallmark, 37)',
+    'HALLMARK_WNT_BETA_CATENIN': 'Wnt/$\\beta$-catenin (Hallmark, 38)',
     'PYROPTOSIS_CORE': 'Pyroptosis core (22)',
     'INJURY_RESPONSE_POSCTRL': 'Injury response (23) — pos. ctrl',
     'MICROGLIA_ACTIVATION': 'Microglial activation (20)',

@@ -72,7 +72,7 @@ GSE134003 was processed to cell-type labels as deposited. Cell numbers and the n
 
 ### Software and reproducibility
 
-Analyses were run in Python 3.11 with NumPy and SciPy. Scripts, gene panels, per-cohort result tables and the GSEA outputs are available at https://github.com/yyx-4113/astrocytic-wnt-pyroptosis-np (tag v1.1.2), which also carries a SHA-256 manifest for every data file and result table.
+Analyses were run in Python 3.11 with NumPy and SciPy. Scripts, gene panels, per-cohort result tables and the GSEA outputs are available at https://github.com/yyx-4113/astrocytic-wnt-pyroptosis-np (tag v1.1.3), which also carries a SHA-256 manifest for every data file and result table.
 
 ---
 
@@ -178,7 +178,7 @@ The Wnt/β-catenin transcriptional programme is not induced in rat spinal cord a
 
 **Consent for publication.** Not applicable.
 
-**Availability of data and materials.** All datasets analysed are publicly available: GSE217932, GSE256472, GSE205906 and GSE134003 (Gene Expression Omnibus, https://www.ncbi.nlm.nih.gov/geo/). Analysis code, gene panels, per-cohort result tables and GSEA outputs are available at https://github.com/yyx-4113/astrocytic-wnt-pyroptosis-np under tag v1.1.2, together with a SHA-256 manifest of all files.
+**Availability of data and materials.** All datasets analysed are publicly available: GSE217932, GSE256472, GSE205906 and GSE134003 (Gene Expression Omnibus, https://www.ncbi.nlm.nih.gov/geo/). Analysis code, gene panels, per-cohort result tables and GSEA outputs are available at https://github.com/yyx-4113/astrocytic-wnt-pyroptosis-np under tag v1.1.3, together with a SHA-256 manifest of all files.
 
 **Competing interests.** The author declares no competing interests.
 
