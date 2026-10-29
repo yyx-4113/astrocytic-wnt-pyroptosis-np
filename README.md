@@ -8,7 +8,7 @@ publicly available, de-identified rodent data; no new experimental data were
 generated.
 
 This repository is the reproducibility package for the manuscript. The current
-release is **v1.1.0**, which replaces the earlier single-cohort analysis in
+release is **v1.1.1**, which replaces the earlier single-cohort analysis in
 `archive_v1.0.3/`.
 
 ## What the study claims, and what it does not
@@ -56,9 +56,11 @@ See the manuscript Discussion for the exact scope of the negative result.
 ## Repository structure
 
 ```
-three_cohort/                    # v1.1.0 analysis (this release)
+three_cohort/                    # v1.1.1 analysis (this release)
   MANUSCRIPT_BMC.md              # manuscript source, BMC format
   MANUSCRIPT_BMC.docx            # submission-ready Word file
+  Additional_File_1_tables.xlsx  # Tables S1-S4 (per-cohort stats, pooled, GSEA, panels)
+  Additional_File_2_figures.pdf  # Figures S1-S2 (pre-processing variants, leave-one-out)
   gene_panels.json               # exact membership of all six gene sets
   scripts/
     run_three_cohort.py          # gene-level testing, equivalence, meta-analysis
@@ -67,6 +69,9 @@ three_cohort/                    # v1.1.0 analysis (this release)
     make_figure.py               # forest plot (three-cohort validation)
     make_gsea_figure.py          # NES heatmap + C1 running enrichment score
     make_figure1.py              # Figure 1 (design, positive control, Wnt panel)
+    make_additional_file1.py     # builds Additional file 1
+    make_additional_file2.py     # builds Additional file 2
+    audit_manuscript.py          # checks every number in the manuscript against the results
   results/
     cohort_C{1,2,3}_*_gene_level.csv   # per-cohort gene-level statistics
     meta_focus.csv                     # random-effects and fixed-effect pooling
@@ -106,6 +111,9 @@ python three_cohort/scripts/run_sensitivity.py     # -> results/sensitivity_resu
 python three_cohort/scripts/make_figure1.py        # -> figures/Figure1_design_and_Wnt.{png,pdf}
 python three_cohort/scripts/make_figure.py         # -> figures/Figure_three_cohort_validation.{png,pdf}
 python three_cohort/scripts/make_gsea_figure.py    # -> figures/Figure_gsea_three_cohort.{png,pdf}
+python three_cohort/scripts/make_additional_file1.py  # -> Additional_File_1_tables.xlsx
+python three_cohort/scripts/make_additional_file2.py  # -> Additional_File_2_figures.{pdf,png}
+python three_cohort/scripts/audit_manuscript.py    # -> 45/45 numeric checks against the results
 ```
 
 Key settings, reported because they change output: gene-level collapse keeps the

@@ -1,7 +1,7 @@
 {
   "HALLMARK_WNT_BETA_CATENIN": {
     "n": 38,
-    "source": "MSigDB v7 Hallmark (37 genes)",
+    "source": "MSigDB Hallmark collection, as retrieved (38 symbols)",
     "genes": [
       "MYC",
       "CCND1",

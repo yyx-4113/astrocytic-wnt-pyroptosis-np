@@ -191,15 +191,20 @@ def main():
     say(f'    HALLMARK_WNT     {fmt(r_med_wnt)}')
     res['med'] = dict(pyro=r_med_pyro, exec=r_med_exec, wnt=r_med_wnt)
 
-    # (c) no expression filter at all, to show what the artefact looks like
+    # (c) no expression filter at all. Originally included to show what a
+    #     t-statistic artefact looks like; measured directly, it changes NES by
+    #     at most 0.16, so it is now reported as a fourth variant rather than as
+    #     a contaminated condition.
     rows_nof, _, _ = G.read_cohort('cohort_C1_GSE217932_CCI_gene_level.csv',
                                    expr_quantile=0.0)
     r_nf_pyro = run_one(rows_nof, 'PYRO_no_filter', G.PYRO)
     r_nf_exec = run_one(rows_nof, 'EXEC_no_filter', EXEC)
-    say(f'  no expression filter ({len(rows_nof)} genes — the artefact condition):')
+    r_nf_wnt = run_one(rows_nof, 'WNT_no_filter', G.WNT)
+    say(f'  no expression filter ({len(rows_nof)} genes):')
     say(f'    PYROPTOSIS_CORE  {fmt(r_nf_pyro)}')
     say(f'    EXECUTION        {fmt(r_nf_exec)}')
-    res['nofilter'] = dict(pyro=r_nf_pyro, exec=r_nf_exec)
+    say(f'    HALLMARK_WNT     {fmt(r_nf_wnt)}')
+    res['nofilter'] = dict(pyro=r_nf_pyro, exec=r_nf_exec, wnt=r_nf_wnt)
 
     # ------------------------------------------- same split in C2 and C3
     say('\n[Q2b] The same execution/priming split in the two other cohorts')
