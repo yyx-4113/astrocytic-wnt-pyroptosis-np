@@ -8,7 +8,7 @@ publicly available, de-identified rodent data; no new experimental data were
 generated.
 
 This repository is the reproducibility package for the manuscript. The current
-release is **v1.1.1**, which replaces the earlier single-cohort analysis in
+release is **v1.1.2**, which replaces the earlier single-cohort analysis in
 `archive_v1.0.3/`.
 
 ## What the study claims, and what it does not
@@ -56,7 +56,7 @@ See the manuscript Discussion for the exact scope of the negative result.
 ## Repository structure
 
 ```
-three_cohort/                    # v1.1.1 analysis (this release)
+three_cohort/                    # v1.1.2 analysis (this release)
   MANUSCRIPT_BMC.md              # manuscript source, BMC format
   MANUSCRIPT_BMC.docx            # submission-ready Word file
   Additional_File_1_tables.xlsx  # Tables S1-S4 (per-cohort stats, pooled, GSEA, panels)

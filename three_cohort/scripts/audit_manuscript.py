@@ -3,6 +3,25 @@
 result files. Expected strings are DERIVED from the artifacts, never typed in."""
 import csv, json, re, math, sys
 
+import os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+_SEARCH = [".", "results", os.path.join(HERE, ".."), os.path.join(HERE, "..", "results"),
+           os.path.join(HERE, "results"), HERE]
+
+
+def P(fn):
+    """Resolve an input file whether the script is run from the analysis folder
+    or from the repository layout (inputs in results/)."""
+    if os.path.isabs(fn):
+        return fn
+    for d in _SEARCH:
+        cand = os.path.join(d, fn)
+        if os.path.exists(cand):
+            return cand
+    return fn
+
+
 FAIL = []
 N = 0
 
@@ -11,7 +30,7 @@ def chk(label, value, expected):
     """value: computed; expected: the string the manuscript should contain."""
     global N
     N += 1
-    txt = open("MANUSCRIPT_BMC.md", encoding="utf-8").read().replace("\u2212", "-")
+    txt = open(P("MANUSCRIPT_BMC.md"), encoding="utf-8").read().replace("\u2212", "-")
     if expected in txt:
         print(f"  PASS  {label:46s} {expected}")
     else:
@@ -20,7 +39,7 @@ def chk(label, value, expected):
 
 
 def load(fn):
-    return list(csv.DictReader(open(fn, encoding="utf-8")))
+    return list(csv.DictReader(open(P(fn), encoding="utf-8")))
 
 
 # ---- per-cohort Atf3
@@ -89,14 +108,14 @@ for cid, nes in [("C1", "+2.68"), ("C2", "+0.76"), ("C3", "-1.11")]:
     r = [x for x in G if x["cohort"] == cid and x["gene_set"] == "PYROPTOSIS_CORE"][0]
     chk(f"Pyro NES {cid}", None, nes)
 
-sens = json.load(open("sensitivity_results.json", encoding="utf-8"))
+sens = json.load(open(P("sensitivity_results.json"), encoding="utf-8"))
 chk("LOO min NES", None, f"{min(d['nes'] for d in sens['loo']):.2f}")
 chk("LOO count", None, f"{len(sens['loo'])} leave-one-out analyses")
 chk("exec/prime NES", None, f"+{sens['exec']['nes']:.2f}")
 chk("nofilter wnt NES", None, f"{sens['nofilter']['wnt']['nes']:.2f}")
 
 # ---- reference integrity
-txt = open("MANUSCRIPT_BMC.md", encoding="utf-8").read()
+txt = open(P("MANUSCRIPT_BMC.md"), encoding="utf-8").read()
 body = txt.split("## References")[0]
 order, seen = [], set()
 for m in re.finditer(r"\[(\d+(?:\s*[,\u2013-]\s*\d+)*)\]", body):
