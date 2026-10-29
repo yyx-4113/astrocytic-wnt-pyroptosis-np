@@ -1,0 +1,6 @@
+# Keep bytes identical across platforms so MANIFEST_sha256.txt verifies everywhere.
+* -text
+*.png binary
+*.pdf binary
+*.docx binary
+*.xlsx binary

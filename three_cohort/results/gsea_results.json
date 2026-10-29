@@ -1,0 +1,206 @@
+{
+  "C1": [
+    {
+      "set": "HALLMARK_WNT_BETA_CATENIN",
+      "k": 33,
+      "N": 14257,
+      "es": -0.4042792115161424,
+      "nes": -1.2868102522661151,
+      "p": 0.09969003099690031,
+      "frac_genes": 86.84210526315789,
+      "note": "MSigDB v7 Hallmark (37 genes)",
+      "q": 0.09969003099690031
+    },
+    {
+      "set": "PYROPTOSIS_CORE",
+      "k": 19,
+      "N": 14257,
+      "es": 0.8414646031886881,
+      "nes": 2.6829735789095626,
+      "p": 9.999000099990002e-05,
+      "frac_genes": 86.36363636363636,
+      "note": "curated core machinery (22)",
+      "q": 0.00011998800119988002
+    },
+    {
+      "set": "INJURY_RESPONSE_POSCTRL",
+      "k": 20,
+      "N": 14257,
+      "es": 0.7191401134462254,
+      "nes": 2.3131588612683798,
+      "p": 9.999000099990002e-05,
+      "frac_genes": 86.95652173913044,
+      "note": "curated injury programme (23) - POSITIVE CONTROL",
+      "q": 0.00011998800119988002
+    },
+    {
+      "set": "MICROGLIA_ACTIVATION",
+      "k": 19,
+      "N": 14257,
+      "es": 0.9123534356839837,
+      "nes": 2.908999562538461,
+      "p": 9.999000099990002e-05,
+      "frac_genes": 95.0,
+      "note": "curated microglial activation (20)",
+      "q": 0.00011998800119988002
+    },
+    {
+      "set": "ASTROCYTE_REACTIVITY",
+      "k": 17,
+      "N": 14257,
+      "es": 0.7254623019701629,
+      "nes": 2.2288162908089,
+      "p": 9.999000099990002e-05,
+      "frac_genes": 89.47368421052632,
+      "note": "curated astrocyte reactivity (19)",
+      "q": 0.00011998800119988002
+    },
+    {
+      "set": "NFKB_CYTOKINE_SIGNALLING",
+      "k": 17,
+      "N": 14257,
+      "es": 0.7853144780504929,
+      "nes": 2.4126983543233305,
+      "p": 9.999000099990002e-05,
+      "frac_genes": 77.27272727272727,
+      "note": "curated NF-kB / cytokine (22)",
+      "q": 0.00011998800119988002
+    }
+  ],
+  "C2": [
+    {
+      "set": "HALLMARK_WNT_BETA_CATENIN",
+      "k": 29,
+      "N": 13059,
+      "es": 0.3398702963578773,
+      "nes": 1.0155966238538296,
+      "p": 0.30396960303969606,
+      "frac_genes": 76.3157894736842,
+      "note": "MSigDB v7 Hallmark (37 genes)",
+      "q": 0.37004299570043
+    },
+    {
+      "set": "PYROPTOSIS_CORE",
+      "k": 17,
+      "N": 13059,
+      "es": 0.2841025975162668,
+      "nes": 0.7550271778761457,
+      "p": 0.5142485751424858,
+      "frac_genes": 77.27272727272727,
+      "note": "curated core machinery (22)",
+      "q": 0.5142485751424858
+    },
+    {
+      "set": "INJURY_RESPONSE_POSCTRL",
+      "k": 20,
+      "N": 13059,
+      "es": 0.551984018216327,
+      "nes": 1.5228174010673559,
+      "p": 0.025797420257974202,
+      "frac_genes": 86.95652173913044,
+      "note": "curated injury programme (23) - POSITIVE CONTROL",
+      "q": 0.15478452154784522
+    },
+    {
+      "set": "MICROGLIA_ACTIVATION",
+      "k": 20,
+      "N": 13059,
+      "es": -0.2621968092641399,
+      "nes": -0.8141796586339012,
+      "p": 0.2505749425057494,
+      "frac_genes": 100.0,
+      "note": "curated microglial activation (20)",
+      "q": 0.37004299570043
+    },
+    {
+      "set": "ASTROCYTE_REACTIVITY",
+      "k": 17,
+      "N": 13059,
+      "es": -0.31237990354236594,
+      "nes": -0.9262366570476477,
+      "p": 0.19458054194580543,
+      "frac_genes": 89.47368421052632,
+      "note": "curated astrocyte reactivity (19)",
+      "q": 0.37004299570043
+    },
+    {
+      "set": "NFKB_CYTOKINE_SIGNALLING",
+      "k": 17,
+      "N": 13059,
+      "es": 0.37228066465403703,
+      "nes": 0.9893680032105285,
+      "p": 0.3083691630836916,
+      "frac_genes": 77.27272727272727,
+      "note": "curated NF-kB / cytokine (22)",
+      "q": 0.37004299570043
+    }
+  ],
+  "C3": [
+    {
+      "set": "HALLMARK_WNT_BETA_CATENIN",
+      "k": 33,
+      "N": 14898,
+      "es": 0.15980850369879374,
+      "nes": 0.4832155985180524,
+      "p": 0.9313068693130687,
+      "frac_genes": 86.84210526315789,
+      "note": "MSigDB v7 Hallmark (37 genes)",
+      "q": 0.9313068693130687
+    },
+    {
+      "set": "PYROPTOSIS_CORE",
+      "k": 18,
+      "N": 14898,
+      "es": -0.2932836308188531,
+      "nes": -1.1058908802146052,
+      "p": 0.0332966703329667,
+      "frac_genes": 81.81818181818181,
+      "note": "curated core machinery (22)",
+      "q": 0.03995600439956004
+    },
+    {
+      "set": "INJURY_RESPONSE_POSCTRL",
+      "k": 20,
+      "N": 14898,
+      "es": -0.32636423082192745,
+      "nes": -1.297252962867699,
+      "p": 0.0122987701229877,
+      "frac_genes": 86.95652173913044,
+      "note": "curated injury programme (23) - POSITIVE CONTROL",
+      "q": 0.01844815518448155
+    },
+    {
+      "set": "MICROGLIA_ACTIVATION",
+      "k": 20,
+      "N": 14898,
+      "es": -0.6087053577402007,
+      "nes": -2.41952013813906,
+      "p": 0.00019998000199980003,
+      "frac_genes": 100.0,
+      "note": "curated microglial activation (20)",
+      "q": 0.0011998800119988001
+    },
+    {
+      "set": "ASTROCYTE_REACTIVITY",
+      "k": 17,
+      "N": 14898,
+      "es": -0.3749930557962381,
+      "nes": -1.3915087761898792,
+      "p": 0.011498850114988501,
+      "frac_genes": 89.47368421052632,
+      "note": "curated astrocyte reactivity (19)",
+      "q": 0.01844815518448155
+    },
+    {
+      "set": "NFKB_CYTOKINE_SIGNALLING",
+      "k": 16,
+      "N": 14898,
+      "es": -0.44086507644349326,
+      "nes": -1.6303992934438059,
+      "p": 0.0033996600339966003,
+      "frac_genes": 72.72727272727273,
+      "note": "curated NF-kB / cytokine (22)",
+      "q": 0.010198980101989802
+    }
+  ]
+}

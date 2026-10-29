@@ -1,0 +1,49 @@
+==============================================================================
+THREE-COHORT VALIDATION — Wnt / pyroptosis in neuropathic-pain spinal cord
+==============================================================================
+
+--- C1 GSE217932 (CCI vs Sham, counts) ---
+
+--- C2 GSE256472 (SNI vs Control, counts) ---
+
+--- C3 GSE205906 (SNI vs Sham, FPKM) ---
+
+==============================================================================
+GENE-SET LEVEL SUMMARY (gene-level, Welch + BH, equivalence bound +/-0.5)
+==============================================================================
+set            cohort                        tested  nom p<.05   padj<.05   equiv
+Wnt            C1 CCI vs Sham                    31          2          0      16
+Wnt            C2 SNI vs Control                 36          4          0       9
+Wnt            C3 SNI vs Sham                    35          0          0      13
+Pyroptosis     C1 CCI vs Sham                    22          4          0       8
+Pyroptosis     C2 SNI vs Control                 21          1          0       2
+Pyroptosis     C3 SNI vs Sham                    22          1          0      10
+PositiveCtrl   C1 CCI vs Sham                    17          5          0      10
+PositiveCtrl   C2 SNI vs Control                 17          2          0       2
+PositiveCtrl   C3 SNI vs Sham                    17          0          0       4
+
+==============================================================================
+META-ANALYSIS (DerSimonian-Laird random effects over 3 cohorts)
+==============================================================================
+  wrote meta_focus.csv (75 genes pooled)
+  wrote three_cohort_focus.csv
+
+==============================================================================
+HEADLINE: positive controls (must move) vs Wnt (must stay flat)
+==============================================================================
+  Atf3       | C1 lfc= +4.03 CI=[ +2.07, +5.98] | C2 lfc= +1.33 CI=[ +0.75, +1.91] | C3 lfc= +1.03 CI=[ -0.43, +2.48]
+  Cacna2d1   | C1 lfc= -0.08 CI=[ -0.26, +0.11] | C2 lfc= -0.71 CI=[ -1.48, +0.06] | C3 lfc= +0.15 CI=[ -0.07, +0.36]
+  Ccl7       | C1 lfc= +4.47 CI=[ +2.04, +6.90] | C2 lfc= +0.48 CI=[ -0.96, +1.93] | C3 lfc= -0.31 CI=[ -1.25, +0.63]
+  Limk1      | C1 lfc= +0.13 CI=[ -0.03, +0.30] | C2 lfc= -0.18 CI=[ -0.93, +0.56] | C3 lfc= +0.24 CI=[ -0.38, +0.85]
+  Eln        | C1 lfc= +0.89 CI=[ +0.23, +1.56] | C2 lfc= +0.30 CI=[ -1.05, +1.65] | C3 lfc= -0.63 CI=[ -1.40, +0.14]
+
+  Ctnnb1     | C1 lfc= -0.01 CI=[ -0.15, +0.12] | C2 lfc= +0.21 CI=[ -0.05, +0.47] | C3 lfc= +0.09 CI=[ -0.10, +0.27]
+  Axin2      | C1 lfc= -0.17 CI=[ -0.49, +0.14] | C2 lfc= +0.12 CI=[ -0.20, +0.43] | C3 lfc= +0.00 CI=[ -0.64, +0.65]
+  Ccnd1      | C1 lfc= +0.02 CI=[ -0.23, +0.26] | C2 lfc= +0.21 CI=[ -0.40, +0.83] | C3 lfc= -0.12 CI=[ -0.37, +0.13]
+  Tcf4       | C1 lfc= -0.15 CI=[ -0.38, +0.08] | C2 lfc= -0.46 CI=[ -1.59, +0.67] | C3 lfc= +0.09 CI=[ -0.47, +0.64]
+  Lef1       | C1 lfc= -0.19 CI=[ -0.42, +0.03] | C2 lfc= +0.23 CI=[ -0.28, +0.74] | C3 lfc= -0.05 CI=[ -1.01, +0.90]
+  Gsk3b      | C1 lfc= -0.11 CI=[ -0.29, +0.07] | C2 lfc= -0.28 CI=[ -0.44, -0.12] | C3 lfc= +0.39 CI=[ -0.11, +0.90]
+  Apc        | C1 lfc= -0.05 CI=[ -0.16, +0.05] | C2 lfc= -0.87 CI=[ -2.28, +0.53] | C3 lfc= +0.21 CI=[ -0.42, +0.84]
+  Nlrp3      | C1 lfc= +0.01 CI=[ -0.86, +0.89] | C2 lfc= -0.31 CI=[ -1.25, +0.64] | C3 lfc= -0.04 CI=[ -0.45, +0.36]
+  Casp1      | C1 lfc= +0.28 CI=[ -0.09, +0.65] | C2 lfc= -0.47 CI=[ -1.27, +0.34] | C3 lfc= -0.11 CI=[ -0.88, +0.66]
+  Gsdmd      | C1 lfc= +0.22 CI=[ -0.02, +0.45] | C2 lfc= +0.18 CI=[ -0.24, +0.61] | C3 lfc= +0.02 CI=[ -0.27, +0.32]
