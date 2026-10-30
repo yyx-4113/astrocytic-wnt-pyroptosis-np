@@ -76,7 +76,7 @@ GSE134003 was tabulated from the deposited ClusterMetadata (66 subtypes; the 735
 
 ### Software and reproducibility
 
-Analyses were run in Python 3.11 with NumPy 1.26 and SciPy 1.11. Scripts, gene panels, per-cohort result tables, GSEA outputs and a SHA-256 manifest of every file are available at [31] (tag v1.1.4).
+Analyses were run in Python 3.13.14 with NumPy 2.5.4 and SciPy 1.18.1; plots and the additional files used Matplotlib 3.11.1 and openpyxl 3.1.5. Exact versions are pinned in the repository's requirements.txt. HALLMARK_WNT_BETA_CATENIN is reproduced as retrieved from MSigDB (38 symbols), with its membership frozen in the repository's gene_panels.json; the curated panels are likewise versioned there. Scripts, gene panels, per-cohort result tables, GSEA outputs and a SHA-256 manifest of every file are available at [31] (tag v1.1.4).
 
 ---
 
