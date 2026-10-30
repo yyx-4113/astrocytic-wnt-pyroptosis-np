@@ -1,0 +1,12 @@
+# Pinned versions of the environment the v1.1.4 release was actually run in
+# (Python 3.13.14, Windows x64). numpy/scipy are the computational core;
+# openpyxl builds Additional file 1; matplotlib builds all figures.
+numpy==2.5.4
+scipy==1.18.1
+openpyxl==3.1.5
+matplotlib==3.11.1
+
+# Notes
+# - No pandas: nothing in three_cohort/scripts imports it.
+# - Raw inputs (GEO series matrices, rat_gene_map.pkl) are NOT in this
+#   repository; set NP_DATA to the directory that holds them.

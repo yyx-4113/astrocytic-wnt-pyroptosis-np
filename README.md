@@ -126,6 +126,7 @@ figures/                         # v1.0.3 figures (legacy)
 scripts/                         # v1.0.3 rebuild scripts (legacy)
 archive_v1.0.3/                  # superseded manuscript and supplements
 MANIFEST_sha256.txt              # SHA-256 of every file in this repository
+requirements.txt                 # pinned package versions used for this release
 ```
 
 ## Data sources
@@ -140,11 +141,12 @@ n = 4 in GSE217932; paeoniflorin–liquiritin, n = 3 in GSE205906).
 
 ## How to reproduce
 
-Python 3.11 with NumPy, SciPy, pandas, openpyxl and matplotlib. Every script
-resolves its output directory without hard-coded absolute paths: it writes next
-to itself when run from this repository, and honours two environment variables —
-`NP_OUT` (where to write results/figures) and `NP_DATA` (where the GEO series
-matrices live, default `D:/省自然/生信分析/data`).
+Python 3.13.14 with the packages pinned in `requirements.txt` (numpy 2.5.4,
+scipy 1.18.1, openpyxl 3.1.5, matplotlib 3.11.1; nothing imports pandas).
+Every script resolves its output directory without hard-coded absolute paths: it
+writes next to itself when run from this repository, and honours two environment
+variables — `NP_OUT` (where to write results/figures) and `NP_DATA` (where the
+GEO series matrices live, default `D:/省自然/生信分析/data`).
 
 ```
 python three_cohort/scripts/run_three_cohort.py    # -> results/cohort_C*_gene_level.csv, meta_focus.csv,
