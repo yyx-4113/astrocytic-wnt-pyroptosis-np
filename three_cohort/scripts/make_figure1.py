@@ -12,6 +12,19 @@ Panel D  genes passing nominal p versus genes passing BH, per cohort
 Every number is read from the files written by run_three_cohort.py.
 """
 import csv, os, math
+
+def _default_out():
+    """Resolve the output directory without hard-coding a machine-specific
+    path.  If the script lives in <pkg>/scripts/, write to <pkg>/; otherwise
+    write next to the script.  Set NP_OUT to override."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    parent = os.path.dirname(here)
+    if os.path.basename(here).lower() == 'scripts' and os.path.isdir(parent):
+        return parent
+    return here
+
+
+
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -28,7 +41,19 @@ plt.rcParams.update({
     'ps.fonttype': 42,
 })
 
-OUT = r'D:/省自然/生信分析/submission/RESCUE_2026-10-29'
+OUT = os.environ.get('NP_OUT') or _default_out()
+RESULTS = os.path.join(OUT, 'results') if os.path.isdir(os.path.join(OUT, 'results')) else OUT
+FIGDIR = os.path.join(OUT, 'figures') if os.path.isdir(os.path.join(OUT, 'figures')) else OUT
+
+
+def _find(fn):
+    for d in (RESULTS, OUT, os.getcwd()):
+        p = os.path.join(d, fn)
+        if os.path.exists(p):
+            return p
+    return os.path.join(RESULTS, fn)  # not found; fail with a clear path
+
+
 COH = {'C1': ('cohort_C1_GSE217932_CCI_gene_level.csv', 'GSE217932\nCCI vs Sham', '#B03A2E'),
        'C2': ('cohort_C2_GSE256472_SNI_gene_level.csv', 'GSE256472\nSNI vs Ctrl', '#2471A3'),
        'C3': ('cohort_C3_GSE205906_SNI_gene_level.csv', 'GSE205906\nSNI vs Sham', '#1E8449')}
@@ -44,7 +69,7 @@ WNT = ['Ctnnb1', 'Tcf4', 'Tcf3', 'Tcf7', 'Tcf7l1', 'Tcf7l2', 'Lef1', 'Apc', 'Axi
 data = {}
 for cid, (fn, label, col) in COH.items():
     d = {}
-    for r in csv.DictReader(open(os.path.join(OUT, fn), encoding='utf-8')):
+    for r in csv.DictReader(open(_find(fn), encoding='utf-8')):
         try:
             d[r['symbol'].upper()] = dict(
                 lfc=float(r['log2FC']), lo=float(r['ci_lo']), hi=float(r['ci_hi']),
@@ -54,7 +79,7 @@ for cid, (fn, label, col) in COH.items():
     data[cid] = d
 
 meta = {}
-for r in csv.DictReader(open(os.path.join(OUT, 'meta_focus.csv'), encoding='utf-8')):
+for r in csv.DictReader(open(_find('meta_focus.csv'), encoding='utf-8')):
     try:
         meta[r['symbol'].upper()] = dict(
             k=int(r['k']), re=float(r['pooled_RE_log2FC']), lo=float(r['RE_ci_lo']),
@@ -242,8 +267,8 @@ axD.text(0.035, 0.025,
          linespacing=1.45,
          bbox=dict(boxstyle='round,pad=0.26', fc='#FDEDEC', ec='#CD6155', lw=0.45))
 
-fig.savefig(os.path.join(OUT, 'Figure1_design_and_Wnt.png'), dpi=400)
-fig.savefig(os.path.join(OUT, 'Figure1_design_and_Wnt.pdf'))
+fig.savefig(os.path.join(FIGDIR, 'Figure1_design_and_Wnt.png'), dpi=400)
+fig.savefig(os.path.join(FIGDIR, 'Figure1_design_and_Wnt.pdf'))
 print('wrote Figure1_design_and_Wnt.png/.pdf')
 print('NC', NC, 'NOM', N_NOM, 'BH', N_BH)
 print('wnt plotted', len(genes), 'pooled eq', n_eq, 'max |pooled|', round(mx, 3))

@@ -1,0 +1,66 @@
+============================================================================================
+PRERANKED GSEA — three cohorts, one procedure
+ranking = Welch t; 10000 gene-set permutations; BH across the 6 sets tested
+============================================================================================
+
+--- C1 GSE217932  CCI vs Sham (n=4v4) ---
+  expression filter: mean log2 expr >= 4.90; 19009 -> 14257 genes retained
+  top 5 after filtering: WDFY4(t=13.5), FGD2(t=13.0), CORO1A(t=12.0), FMNL3(t=11.9), TLR1(t=11.9)
+  gene set                          k      ES     NES    nom p    FDR q
+  MICROGLIA_ACTIVATION             19  +0.912   +2.91   0.0001    0.000
+  PYROPTOSIS_CORE                  19  +0.841   +2.68   0.0001    0.000
+  NFKB_CYTOKINE_SIGNALLING         17  +0.785   +2.41   0.0001    0.000
+  INJURY_RESPONSE_POSCTRL          20  +0.719   +2.31   0.0001    0.000
+  ASTROCYTE_REACTIVITY             17  +0.725   +2.23   0.0001    0.000
+  HALLMARK_WNT_BETA_CATENIN        33  -0.404   -1.29   0.0997    0.100
+
+--- C2 GSE256472  SNI vs Ctrl (n=3v3) ---
+  expression filter: mean log2 expr >= 1.60; 17412 -> 13059 genes retained
+  top 5 after filtering: POMK(t=21.8), SP2(t=17.3), ATP2B4(t=17.3), POLA2(t=15.3), AIP(t=13.3)
+  gene set                          k      ES     NES    nom p    FDR q
+  INJURY_RESPONSE_POSCTRL          20  +0.552   +1.52   0.0258    0.155
+  HALLMARK_WNT_BETA_CATENIN        29  +0.340   +1.02   0.3040    0.370
+  NFKB_CYTOKINE_SIGNALLING         17  +0.372   +0.99   0.3084    0.370
+  ASTROCYTE_REACTIVITY             17  -0.312   -0.93   0.1946    0.370
+  MICROGLIA_ACTIVATION             20  -0.262   -0.81   0.2506    0.370
+  PYROPTOSIS_CORE                  17  +0.284   +0.76   0.5142    0.514
+
+--- C3 GSE205906  SNI vs Sham (n=3v3) ---
+  expression filter: mean log2 expr >= 0.42; 19864 -> 14898 genes retained
+  top 5 after filtering: RABL3(t=17.7), SSMEM1(t=16.8), ABCG1(t=16.4), TNPO3(t=14.4), IQCC(t=13.3)
+  gene set                          k      ES     NES    nom p    FDR q
+  MICROGLIA_ACTIVATION             20  -0.609   -2.42   0.0002    0.001
+  NFKB_CYTOKINE_SIGNALLING         16  -0.441   -1.63   0.0034    0.010
+  ASTROCYTE_REACTIVITY             17  -0.375   -1.39   0.0115    0.018
+  INJURY_RESPONSE_POSCTRL          20  -0.326   -1.30   0.0123    0.018
+  PYROPTOSIS_CORE                  18  -0.293   -1.11   0.0333    0.040
+  HALLMARK_WNT_BETA_CATENIN        33  +0.160   +0.48   0.9313    0.931
+
+============================================================================================
+CROSS-COHORT CONSISTENCY (NES per cohort)
+============================================================================================
+gene set                         C1 NES   C2 NES   C3 NES  all q<0.05?
+HALLMARK_WNT_BETA_CATENIN        -1.29   +1.02   +0.48          no
+PYROPTOSIS_CORE                  +2.68   +0.76   -1.11          no
+INJURY_RESPONSE_POSCTRL          +2.31   +1.52   -1.30          no
+MICROGLIA_ACTIVATION             +2.91   -0.81   -2.42          no
+ASTROCYTE_REACTIVITY             +2.23   -0.93   -1.39          no
+NFKB_CYTOKINE_SIGNALLING         +2.41   +0.99   -1.63          no
+
+wrote D:\省自然\生信分析\astrocytic-wnt-pyroptosis-np\three_cohort\results\gsea_three_cohort.csv
+
+============================================================================================
+HEADLINE
+============================================================================================
+  INJURY_RESPONSE_POSCTRL
+    C1: NES=+2.31 p=0.000 q=0.00
+    C2: NES=+1.52 p=0.026 q=0.15
+    C3: NES=-1.30 p=0.012 q=0.02
+  HALLMARK_WNT_BETA_CATENIN
+    C1: NES=-1.29 p=0.100 q=0.10
+    C2: NES=+1.02 p=0.304 q=0.37
+    C3: NES=+0.48 p=0.931 q=0.93
+  PYROPTOSIS_CORE
+    C1: NES=+2.68 p=0.000 q=0.00
+    C2: NES=+0.76 p=0.514 q=0.51
+    C3: NES=-1.11 p=0.033 q=0.04

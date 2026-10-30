@@ -26,6 +26,14 @@ PositiveCtrl   C3 SNI vs Sham                    17          0          0       
 META-ANALYSIS (DerSimonian-Laird random effects over 3 cohorts)
 ==============================================================================
   wrote meta_focus.csv (75 genes pooled)
+  equivalence (95% CI wholly within +/-0.5): 51/75 under the normal-quantile interval, 30/75 under Hartung-Knapp-Sidik-Jonkman
+  Wnt panel only: 36 poolable; equivalent 31 normal / 18 HKSJ
+
+  SENSITIVITY: Wnt re-pooled over C1+C2 only (31 genes)
+    largest induction: Tcf3 +0.3018 log2 (1.233-fold)
+    largest decrease: Wnt2 -0.5030 log2
+    equivalent: 20/31 normal-quantile, 2/31 HKSJ
+  wrote sensitivity_two_cohort.csv
   wrote three_cohort_focus.csv
 
 ==============================================================================

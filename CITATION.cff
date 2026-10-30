@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite the manuscript and this repository."
-title: "The Wnt/beta-catenin transcriptional programme is not induced in neuropathic pain spinal cord: evidence from three independent rat cohorts"
-version: "1.1.3"
-date-released: "2026-10-29"
+title: "No induction of a Wnt/beta-catenin transcriptional programme in bulk rat spinal cord after peripheral nerve injury: a three-cohort reanalysis with equivalence testing"
+version: "1.1.4"
+date-released: "2026-10-30"
 authors:
   - family-names: Yang
     given-names: Yong-Xin

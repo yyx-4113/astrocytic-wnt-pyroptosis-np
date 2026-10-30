@@ -36,9 +36,33 @@ share symbols). The remaining sets are curated canonical marker panels, NOT
 MSigDB sets, and are labelled as such in the output.
 """
 import csv, os, math, json
+
+def _default_out():
+    """Resolve the output directory without hard-coding a machine-specific
+    path.  If the script lives in <pkg>/scripts/, write to <pkg>/; otherwise
+    write next to the script.  Set NP_OUT to override."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    parent = os.path.dirname(here)
+    if os.path.basename(here).lower() == 'scripts' and os.path.isdir(parent):
+        return parent
+    return here
+
+
+
 import numpy as np
 
-OUT = r'D:/省自然/生信分析/submission/RESCUE_2026-10-29'
+OUT = os.environ.get('NP_OUT') or _default_out()
+# Repository layout: per-cohort CSVs and GSEA outputs live in <pkg>/results/.
+RESULTS = os.path.join(OUT, 'results') if os.path.isdir(os.path.join(OUT, 'results')) else OUT
+
+
+def _find(fn):
+    """Locate an input file in the results dir, the package dir, or the CWD."""
+    for d in (RESULTS, OUT, os.getcwd()):
+        p = os.path.join(d, fn)
+        if os.path.exists(p):
+            return p
+    return os.path.join(RESULTS, fn)  # not found; fail with a clear path
 COHORTS = [
     ('C1', 'cohort_C1_GSE217932_CCI_gene_level.csv', 'GSE217932  CCI vs Sham (n=4v4)'),
     ('C2', 'cohort_C2_GSE256472_SNI_gene_level.csv', 'GSE256472  SNI vs Ctrl (n=3v3)'),
@@ -101,7 +125,7 @@ def read_cohort(fn, expr_quantile=0.25, t_cap=50.0):
     the cohort's own lower-quartile mean expression.
     """
     raw = []
-    with open(os.path.join(OUT, fn), encoding='utf-8') as fh:
+    with open(_find(fn), encoding='utf-8') as fh:
         for r in csv.DictReader(fh):
             try:
                 t = float(r['t_stat'])
@@ -232,7 +256,7 @@ def main():
         say(line)
 
     # -------- write csv
-    path = os.path.join(OUT, 'gsea_three_cohort.csv')
+    path = os.path.join(RESULTS, 'gsea_three_cohort.csv')
     with open(path, 'w', newline='', encoding='utf-8') as fh:
         w = csv.writer(fh)
         w.writerow(['cohort', 'gene_set', 'set_source', 'n_genes_in_set', 'n_ranked',
@@ -258,9 +282,9 @@ def main():
         for v in vals:
             say(f'    {v}')
 
-    with open(os.path.join(OUT, 'gsea_summary.txt'), 'w', encoding='utf-8') as fh:
+    with open(os.path.join(RESULTS, 'gsea_summary.txt'), 'w', encoding='utf-8') as fh:
         fh.write('\n'.join(log) + '\n')
-    with open(os.path.join(OUT, 'gsea_results.json'), 'w', encoding='utf-8') as fh:
+    with open(os.path.join(RESULTS, 'gsea_results.json'), 'w', encoding='utf-8') as fh:
         json.dump({cid: all_res[cid] for cid in all_res}, fh, indent=2)
     say('\nwrote gsea_summary.txt, gsea_results.json')
 

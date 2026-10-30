@@ -6,6 +6,7 @@ All plotted values are read from the result files; nothing is hard-coded.
 """
 import csv
 import json
+import os
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -24,11 +25,25 @@ WNT_C = "#2F5D8C"
 PYRO_C = "#B4443C"
 GREY = "#6E6E6E"
 
-sens = json.load(open("sensitivity_results.json", encoding="utf-8"))
+HERE = os.path.dirname(os.path.abspath(__file__))
+PKG = os.path.dirname(HERE) if os.path.basename(HERE).lower() == "scripts" else HERE
+RESULTS = os.path.join(PKG, "results") if os.path.isdir(os.path.join(PKG, "results")) else PKG
+OUTDIR = os.environ.get("NP_OUT", PKG)
+
+
+def _find(fn):
+    for d in (RESULTS, PKG, os.getcwd()):
+        p = os.path.join(d, fn)
+        if os.path.exists(p):
+            return p
+    return os.path.join(RESULTS, fn)  # not found; fail with a clear path
+
+
+sens = json.load(open(_find("sensitivity_results.json"), encoding="utf-8"))
 
 # primary-setting values come from the GSEA output table, never hard-coded
 PRIMARY = {}
-with open("gsea_three_cohort.csv", encoding="utf-8") as fh:
+with open(_find("gsea_three_cohort.csv"), encoding="utf-8") as fh:
     for r in csv.DictReader(fh):
         if r["cohort"] == "C1":
             PRIMARY[r["gene_set"]] = (float(r["NES"]), float(r["nominal_p"]))
@@ -98,15 +113,62 @@ def panel_b(ax):
             transform=ax.transAxes, fontsize=6, color=GREY)
 
 
+SHORT = {"raw": "raw counts", "median_ratio": "median-of-ratios",
+         "upper_quartile": "upper-quartile", "as_deposited": "as deposited (RPKM)"}
+
+
+def panel_c(ax):
+    """Does library normalisation create the null?  Survivors of BH correction
+    under every pre-processing regime tried."""
+    norm = json.load(open(_find("normalisation_sensitivity.json"), encoding="utf-8"))
+    labels, values, colours = [], [], []
+    palette = {"C1": "#C0392B", "C2": "#2471A3", "C3": "#1E8449"}
+    for cid in ("C1", "C2", "C3"):
+        for key in [k for k in norm[cid] if isinstance(norm[cid][k], dict)
+                    and "q05_survivors" in norm[cid][k]]:
+            base = key.replace("_indepfiltered", "")
+            lab = SHORT.get(base, base)
+            if key.endswith("_indepfiltered"):
+                lab += " + filtering"
+            labels.append(f"{cid}  {lab}")
+            values.append(norm[cid][key]["q05_survivors"])
+            colours.append(palette[cid])
+    y = list(range(len(labels)))
+    ax.barh(y, values, color=colours, height=0.68)
+    ax.set_yticks(y)
+    ax.set_yticklabels(labels, fontsize=5.6)
+    ax.invert_yaxis()
+    ax.set_xlabel("genes surviving Benjamini\u2013Hochberg q < 0.05", fontsize=6.5)
+    ax.set_xlim(0, max(values) + 1.5)
+    ax.tick_params(axis="x", labelsize=6)
+    for spine in ("top", "right"):
+        ax.spines[spine].set_visible(False)
+    ax.set_title("C   Library normalisation does not create the null",
+                 loc="left", fontsize=7.5, fontweight="bold", pad=8)
+    qs = {}
+    for cid in ("C1", "C2", "C3"):
+        v = [norm[cid][k]["Atf3"]["q"] for k in norm[cid]
+             if isinstance(norm[cid][k], dict) and norm[cid][k].get("Atf3")]
+        qs[cid] = (min(v), max(v))
+    note = ("Atf3 across the same regimes: C1 %.2f\u2013%.2f, C2 %.2f\u2013%.2f, C3 %.2f "
+            "(q never below 0.05)\n"
+            "Total genes tested per regime: 9,505\u201319,864. C3 is already normalised "
+            "abundance and cannot be re-normalised.") % (
+        qs["C1"][0], qs["C1"][1], qs["C2"][0], qs["C2"][1], qs["C3"][0])
+    ax.text(0.0, -0.34, note, transform=ax.transAxes, fontsize=5.6,
+            color=GREY, va="top")
+
+
 def main():
     mm = 1 / 25.4
-    fig = plt.figure(figsize=(183 * mm, 150 * mm))
-    gs = fig.add_gridspec(2, 1, height_ratios=[1.0, 1.15], hspace=0.72,
-                          left=0.155, right=0.955, top=0.90, bottom=0.13)
+    fig = plt.figure(figsize=(183 * mm, 215 * mm))
+    gs = fig.add_gridspec(3, 1, height_ratios=[1.0, 1.15, 1.05], hspace=0.66,
+                          left=0.155, right=0.955, top=0.945, bottom=0.125)
     panel_a(fig.add_subplot(gs[0]))
     panel_b(fig.add_subplot(gs[1]))
-    fig.savefig("Additional_File_2_figures.pdf", dpi=400)
-    fig.savefig("Additional_File_2_figures.png", dpi=400)
+    panel_c(fig.add_subplot(gs[2]))
+    fig.savefig(os.path.join(OUTDIR, "Additional_File_2_figures.pdf"), dpi=400)
+    fig.savefig(os.path.join(OUTDIR, "Additional_File_2_figures.png"), dpi=400)
     print("saved Additional_File_2_figures.pdf/.png")
 
 

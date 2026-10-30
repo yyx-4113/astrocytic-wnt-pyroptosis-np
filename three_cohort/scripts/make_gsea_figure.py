@@ -1,6 +1,19 @@
 # -*- coding: utf-8 -*-
 """GSEA figure: cohort x gene-set NES heatmap + C1 pyroptosis walking plot."""
 import csv, os, math
+
+def _default_out():
+    """Resolve the output directory without hard-coding a machine-specific
+    path.  If the script lives in <pkg>/scripts/, write to <pkg>/; otherwise
+    write next to the script.  Set NP_OUT to override."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    parent = os.path.dirname(here)
+    if os.path.basename(here).lower() == 'scripts' and os.path.isdir(parent):
+        return parent
+    return here
+
+
+
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -10,12 +23,23 @@ from matplotlib.colors import TwoSlopeNorm
 plt.rcParams.update({'font.family': 'sans-serif', 'font.sans-serif': ['Arial', 'DejaVu Sans'],
                      'font.size': 8, 'axes.linewidth': 0.8, 'pdf.fonttype': 42})
 
-OUT = r'D:/省自然/生信分析/submission/RESCUE_2026-10-29'
+OUT = os.environ.get('NP_OUT') or _default_out()
+RESULTS = os.path.join(OUT, 'results') if os.path.isdir(os.path.join(OUT, 'results')) else OUT
+FIGDIR = os.path.join(OUT, 'figures') if os.path.isdir(os.path.join(OUT, 'figures')) else OUT
+
+
+def _find(fn):
+    for d in (RESULTS, OUT, os.getcwd()):
+        p = os.path.join(d, fn)
+        if os.path.exists(p):
+            return p
+    return os.path.join(RESULTS, fn)  # not found; fail with a clear path
+
 
 # ---------- read gsea csv
 tab = {}
 sets_order = []
-for r in csv.DictReader(open(os.path.join(OUT, 'gsea_three_cohort.csv'), encoding='utf-8')):
+for r in csv.DictReader(open(_find('gsea_three_cohort.csv'), encoding='utf-8')):
     tab[(r['cohort'], r['gene_set'])] = (float(r['NES']), float(r['nominal_p']), float(r['FDR_q_across_sets_in_cohort']))
     if r['gene_set'] not in sets_order:
         sets_order.append(r['gene_set'])
@@ -67,7 +91,7 @@ fig.text(0.5, 0.012, '* q<0.05    ** q<0.01    *** q<0.001    (Benjamini-Hochber
 PYRO = ["NLRP3","NLRC4","AIM2","PYCARD","CASP1","CASP4","CASP8","CASP3","GSDMD","GSDME",
         "IL1B","IL18","IL1A","HMGB1","TNF","IL6","NEK7","TXNIP","TLR4","NFKB1","RELA","GZMB"]
 raw = []
-for r in csv.DictReader(open(os.path.join(OUT, 'cohort_C1_GSE217932_CCI_gene_level.csv'), encoding='utf-8')):
+for r in csv.DictReader(open(_find('cohort_C1_GSE217932_CCI_gene_level.csv'), encoding='utf-8')):
     try:
         raw.append((r['symbol'].upper(), float(r['t_stat']), float(r['log2FC']), float(r['mean_expr'])))
     except ValueError:
@@ -121,7 +145,7 @@ fig.text(0.5, 0.975, 'Wnt programme is not enriched in any cohort; pyroptosis sh
          ha='center', va='top', fontsize=9.0, fontweight='bold')
 
 for ext in ['png', 'pdf']:
-    fig.savefig(os.path.join(OUT, f'Figure_gsea_three_cohort.{ext}'), dpi=400,
+    fig.savefig(os.path.join(FIGDIR, f'Figure_gsea_three_cohort.{ext}'), dpi=400,
                 bbox_inches='tight', facecolor='white')
 print('saved Figure_gsea_three_cohort.png/.pdf')
 print('pyro ES', round(float(cum.max()), 4), 'peak rank', int(np.argmax(cum)) + 1)

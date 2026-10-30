@@ -32,7 +32,11 @@ sys.path.insert(0, HERE)
 
 import run_gsea as G
 
-OUT = G.OUT
+OUT = G.RESULTS
+
+
+def _find(fn):
+    return G._find(fn)
 SAY = []
 
 
@@ -159,7 +163,7 @@ def main():
 
     # (a) ranking metric: t -> log2FC (re-read with the same expression filter)
     raw = []
-    with open(os.path.join(OUT, 'cohort_C1_GSE217932_CCI_gene_level.csv'), encoding='utf-8') as fh:
+    with open(_find('cohort_C1_GSE217932_CCI_gene_level.csv'), encoding='utf-8') as fh:
         for r in csv.DictReader(fh):
             try:
                 lfc = float(r['log2FC']); expr = float(r['mean_expr'])

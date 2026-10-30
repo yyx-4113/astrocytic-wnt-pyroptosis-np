@@ -1,6 +1,19 @@
 # -*- coding: utf-8 -*-
 """Figure: three-cohort forest plot + detectability calibration."""
 import csv, math, os
+
+def _default_out():
+    """Resolve the output directory without hard-coding a machine-specific
+    path.  If the script lives in <pkg>/scripts/, write to <pkg>/; otherwise
+    write next to the script.  Set NP_OUT to override."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    parent = os.path.dirname(here)
+    if os.path.basename(here).lower() == 'scripts' and os.path.isdir(parent):
+        return parent
+    return here
+
+
+
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -17,7 +30,19 @@ plt.rcParams.update({
     'ps.fonttype': 42,
 })
 
-OUT = r'D:/省自然/生信分析/submission/RESCUE_2026-10-29'
+OUT = os.environ.get('NP_OUT') or _default_out()
+RESULTS = os.path.join(OUT, 'results') if os.path.isdir(os.path.join(OUT, 'results')) else OUT
+FIGDIR = os.path.join(OUT, 'figures') if os.path.isdir(os.path.join(OUT, 'figures')) else OUT
+
+
+def _find(fn):
+    for d in (RESULTS, OUT, os.getcwd()):
+        p = os.path.join(d, fn)
+        if os.path.exists(p):
+            return p
+    return os.path.join(RESULTS, fn)  # not found; fail with a clear path
+
+
 COH = {'C1': ('cohort_C1_GSE217932_CCI_gene_level.csv', 'GSE217932  CCI vs Sham', '#C0392B'),
        'C2': ('cohort_C2_GSE256472_SNI_gene_level.csv', 'GSE256472  SNI vs Ctrl', '#2471A3'),
        'C3': ('cohort_C3_GSE205906_SNI_gene_level.csv', 'GSE205906  SNI vs Sham', '#1E8449')}
@@ -25,7 +50,7 @@ COH = {'C1': ('cohort_C1_GSE217932_CCI_gene_level.csv', 'GSE217932  CCI vs Sham'
 data = {}
 for cid, (fn, label, col) in COH.items():
     d = {}
-    for r in csv.DictReader(open(os.path.join(OUT, fn), encoding='utf-8')):
+    for r in csv.DictReader(open(_find(fn), encoding='utf-8')):
         try:
             d[r['symbol'].upper()] = dict(lfc=float(r['log2FC']), lo=float(r['ci_lo']),
                                           hi=float(r['ci_hi']), p=float(r['pvalue']),
@@ -35,7 +60,7 @@ for cid, (fn, label, col) in COH.items():
     data[cid] = d
 
 meta = {}
-for r in csv.DictReader(open(os.path.join(OUT, 'meta_focus.csv'), encoding='utf-8')):
+for r in csv.DictReader(open(_find('meta_focus.csv'), encoding='utf-8')):
     try:
         meta[r['symbol'].upper()] = dict(k=int(r['k']), re=float(r['pooled_RE_log2FC']),
                                         lo=float(r['RE_ci_lo']), hi=float(r['RE_ci_hi']),
@@ -144,7 +169,7 @@ fig.text(0.5, 0.958, 'Three independent rat bulk RNA-seq cohorts, identical pipe
          ha='center', va='top', fontsize=6.6, color='#555555')
 
 for ext in ['png', 'pdf']:
-    fig.savefig(os.path.join(OUT, f'Figure_three_cohort_validation.{ext}'), dpi=400,
+    fig.savefig(os.path.join(FIGDIR, f'Figure_three_cohort_validation.{ext}'), dpi=400,
                 bbox_inches='tight', facecolor='white')
 print('saved Figure_three_cohort_validation.png/.pdf')
 print(f'panel B: equivalence {int((eqs==1).sum())}/{len(eqs)} in C1')

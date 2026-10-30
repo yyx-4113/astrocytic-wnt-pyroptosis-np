@@ -24,12 +24,28 @@ Outputs (RESCUE_2026-10-29/):
   run_summary.txt
 """
 import os, sys, csv, gzip, math, pickle
+
+def _default_out():
+    """Resolve the output directory without hard-coding a machine-specific
+    path.  If the script lives in <pkg>/scripts/, write to <pkg>/; otherwise
+    write next to the script.  Set NP_OUT to override."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    parent = os.path.dirname(here)
+    if os.path.basename(here).lower() == 'scripts' and os.path.isdir(parent):
+        return parent
+    return here
+
+
+
 import numpy as np
 from scipy import stats
 
-DATA = r'D:/省自然/生信分析/data'
-OUT = r'D:/省自然/生信分析/submission/RESCUE_2026-10-29'
+DATA = os.environ.get('NP_DATA') or r'D:/省自然/生信分析/data'
+OUT = os.environ.get('NP_OUT') or _default_out()
 os.makedirs(OUT, exist_ok=True)
+# In the repository layout the numeric outputs live in <pkg>/results/; in a flat
+# layout (everything in one directory) there is no results/ and OUT is used.
+RESULTS = os.path.join(OUT, 'results') if os.path.isdir(os.path.join(OUT, 'results')) else OUT
 
 # ---------------------------------------------------------------- gene sets
 WNT = ['Ctnnb1','Tcf4','Tcf3','Tcf7','Tcf7l1','Tcf7l2','Lef1','Apc','Axin1','Axin2',
@@ -126,7 +142,7 @@ def collapse_and_test(records, group_a_idx, group_b_idx, sample_names, label):
                   and r['ci_lo'] > -0.5 and r['ci_hi'] < 0.5)
     print(f'  [{label}] genes={len(rows)} nominal_p<0.05={n_nom} '
           f'padj<0.05={n_sig} equivalence(|CI|<0.5)={n_equiv}')
-    path = os.path.join(OUT, f'cohort_{label}_gene_level.csv')
+    path = os.path.join(RESULTS, f'cohort_{label}_gene_level.csv')
     with open(path, 'w', newline='', encoding='utf-8') as fh:
         w = csv.writer(fh)
         w.writerow(['symbol','log2FC','pvalue','t_stat','df','padj',
@@ -254,8 +270,21 @@ def dersimonian_laird(effects, ses):
     z = re / se_re if se_re > 0 else float('nan')
     p = 2 * stats.norm.sf(abs(z)) if not math.isnan(z) else float('nan')
     se_fe = math.sqrt(1.0 / wsum)
+    # Hartung-Knapp-Sidik-Jonkman.  At k = 2-3 the normal-quantile interval
+    # above under-covers badly, because se_re treats tau2 as if it were known.
+    # HKSJ rescales by sqrt(q/(k-1)) and uses t_{k-1}; it is the interval that
+    # should be trusted at these k, and both are reported.
+    q_h = sum(wi * (ei - re) ** 2 for wi, ei in zip(wr, eff)) / df if df > 0 else 0.0
+    se_hksj = math.sqrt(max(q_h, 0.0)) * se_re if df > 0 else float('nan')
+    tcrit = float(stats.t.ppf(0.975, df)) if df > 0 else float('nan')
+    hksj_lo = re - tcrit * se_hksj if df > 0 else float('nan')
+    hksj_hi = re + tcrit * se_hksj if df > 0 else float('nan')
+    p_hksj = (2 * stats.t.sf(abs(re / se_hksj), df)
+              if df > 0 and se_hksj and se_hksj > 0 else float('nan'))
     return {'k': k, 'fe': fe, 'fe_se': se_fe, 're': re, 're_se': se_re,
             're_lo': re - 1.96 * se_re, 're_hi': re + 1.96 * se_re,
+            'hksj_se': se_hksj, 'hksj_lo': hksj_lo, 'hksj_hi': hksj_hi,
+            'p_hksj': p_hksj,
             'p': p, 'Q': Q, 'I2': I2, 'tau2': tau2}
 
 
@@ -335,25 +364,92 @@ def main():
                          'lfc_C2': cohorts['C2'][0].get(k, {}).get('lfc', ''),
                          'lfc_C3': cohorts['C3'][0].get(k, {}).get('lfc', ''),
                          're': m['re'], 're_lo': m['re_lo'], 're_hi': m['re_hi'],
+                         'hksj_lo': m['hksj_lo'], 'hksj_hi': m['hksj_hi'],
+                         'p_hksj': m['p_hksj'],
+                         'equiv_normal': m['re_lo'] > -0.5 and m['re_hi'] < 0.5,
+                         'equiv_hksj': m['hksj_lo'] > -0.5 and m['hksj_hi'] < 0.5,
                          'p': m['p'], 'I2': m['I2'], 'tau2': m['tau2'], 'fe': m['fe']})
-    with open(os.path.join(OUT, 'meta_focus.csv'), 'w', newline='', encoding='utf-8') as fh:
+    with open(os.path.join(RESULTS, 'meta_focus.csv'), 'w', newline='', encoding='utf-8') as fh:
         w = csv.writer(fh)
         w.writerow(['symbol','k','cohorts','lfc_C1_CCI','lfc_C2_SNI','lfc_C3_SNI',
                     'pooled_RE_log2FC','RE_ci_lo','RE_ci_hi','p_RE','I2_pct','tau2',
-                    'pooled_FE_log2FC'])
+                    'pooled_FE_log2FC','HKSJ_ci_lo','HKSJ_ci_hi','p_HKSJ',
+                    'equiv_normal','equiv_HKSJ'])
         for r in rows_out:
             if 're' not in r:
-                w.writerow([r['symbol'], r['k'], r.get('note','')] + [''] * 10)
+                w.writerow([r['symbol'], r['k'], r.get('note','')] + [''] * 15)
                 continue
             fmt = lambda v: f'{v:.4f}' if isinstance(v, float) else (f'{v:.4f}' if isinstance(v, (int, np.floating)) else v)
             w.writerow([r['symbol'], r['k'], r['cohorts'],
                         fmt(r['lfc_C1']), fmt(r['lfc_C2']), fmt(r['lfc_C3']),
                         fmt(r['re']), fmt(r['re_lo']), fmt(r['re_hi']),
-                        f"{r['p']:.4e}", fmt(r['I2']), fmt(r['tau2']), fmt(r['fe'])])
-    say(f'  wrote meta_focus.csv ({sum(1 for r in rows_out if "re" in r)} genes pooled)')
+                        f"{r['p']:.4e}", fmt(r['I2']), fmt(r['tau2']), fmt(r['fe']),
+                        fmt(r['hksj_lo']), fmt(r['hksj_hi']), fmt(r['p_hksj']),
+                        int(r['equiv_normal']), int(r['equiv_hksj'])])
+    n_eqn = sum(1 for r in rows_out if r.get('equiv_normal'))
+    n_eqh = sum(1 for r in rows_out if r.get('equiv_hksj'))
+    n_po = sum(1 for r in rows_out if 're' in r)
+    say(f'  wrote meta_focus.csv ({n_po} genes pooled)')
+    say(f'  equivalence (95% CI wholly within +/-0.5): '
+        f'{n_eqn}/{n_po} under the normal-quantile interval, '
+        f'{n_eqh}/{n_po} under Hartung-Knapp-Sidik-Jonkman')
+    n_wnt = [r for r in rows_out if 're' in r and r['symbol'] in WNT]
+    if n_wnt:
+        say(f'  Wnt panel only: {len(n_wnt)} poolable; equivalent '
+            f'{sum(1 for r in n_wnt if r["equiv_normal"])} normal / '
+            f'{sum(1 for r in n_wnt if r["equiv_hksj"])} HKSJ')
+
+    # ---------------- sensitivity: re-pool the Wnt panel without C3
+    # The manuscript excludes the cohort that failed its own positive control
+    # and reports the result, so the pipeline has to be able to produce it.
+    # (Round-2 review: this re-pooling had no code behind it.)
+    rows_two = []
+    for g in sorted(WNT):
+        k = g.upper()
+        eff, ses, present = [], [], []
+        for cid in ['C1', 'C2']:
+            r = cohorts[cid][0].get(k)
+            if r is None:
+                continue
+            t = r['t']
+            if t is None or t == 0 or math.isnan(t):
+                continue
+            se = abs(r['lfc'] / t)
+            if se > 0 and not math.isnan(se):
+                eff.append(r['lfc']); ses.append(se); present.append(cid)
+        if len(eff) < 2 or not dersimonian_laird(eff, ses):
+            continue
+        m = dersimonian_laird(eff, ses)
+        rows_two.append({'symbol': g, 'k': m['k'], 'cohorts': '+'.join(present),
+                         're': m['re'], 're_lo': m['re_lo'], 're_hi': m['re_hi'],
+                         'hksj_lo': m['hksj_lo'], 'hksj_hi': m['hksj_hi'],
+                         'p': m['p'], 'I2': m['I2'], 'tau2': m['tau2'],
+                         'equiv_normal': m['re_lo'] > -0.5 and m['re_hi'] < 0.5,
+                         'equiv_hksj': m['hksj_lo'] > -0.5 and m['hksj_hi'] < 0.5})
+    with open(os.path.join(RESULTS, 'sensitivity_two_cohort.csv'), 'w',
+              newline='', encoding='utf-8') as fh:
+        w = csv.writer(fh)
+        w.writerow(['symbol','k','cohorts','pooled_RE_log2FC','RE_ci_lo','RE_ci_hi',
+                    'HKSJ_ci_lo','HKSJ_ci_hi','p_RE','I2_pct','tau2',
+                    'equiv_normal','equiv_HKSJ'])
+        for r in sorted(rows_two, key=lambda x: -x['re']):
+            w.writerow([r['symbol'], r['k'], r['cohorts'], f"{r['re']:.4f}",
+                        f"{r['re_lo']:.4f}", f"{r['re_hi']:.4f}",
+                        f"{r['hksj_lo']:.4f}", f"{r['hksj_hi']:.4f}",
+                        f"{r['p']:.4e}", f"{r['I2']:.2f}", f"{r['tau2']:.4f}",
+                        int(r['equiv_normal']), int(r['equiv_hksj'])])
+    say(f'\n  SENSITIVITY: Wnt re-pooled over C1+C2 only ({len(rows_two)} genes)')
+    say(f'    largest induction: {max(rows_two, key=lambda x: x["re"])["symbol"]} '
+        f'{max(rows_two, key=lambda x: x["re"])["re"]:+.4f} log2 '
+        f'({2 ** max(rows_two, key=lambda x: x["re"])["re"]:.3f}-fold)')
+    say(f'    largest decrease: {min(rows_two, key=lambda x: x["re"])["symbol"]} '
+        f'{min(rows_two, key=lambda x: x["re"])["re"]:+.4f} log2')
+    say(f'    equivalent: {sum(1 for r in rows_two if r["equiv_normal"])}/{len(rows_two)} '
+        f'normal-quantile, {sum(1 for r in rows_two if r["equiv_hksj"])}/{len(rows_two)} HKSJ')
+    say('  wrote sensitivity_two_cohort.csv')
 
     # ---------------- focus table (long format)
-    with open(os.path.join(OUT, 'three_cohort_focus.csv'), 'w', newline='', encoding='utf-8') as fh:
+    with open(os.path.join(RESULTS, 'three_cohort_focus.csv'), 'w', newline='', encoding='utf-8') as fh:
         w = csv.writer(fh)
         w.writerow(['symbol','cohort','contrast','log2FC','ci_lo','ci_hi','pvalue','padj',
                     'equiv_within_0.5','direction'])
@@ -398,7 +494,7 @@ def main():
                 line += f' | {cid} absent'
         say(line)
 
-    with open(os.path.join(OUT, 'run_summary.txt'), 'w', encoding='utf-8') as fh:
+    with open(os.path.join(RESULTS, 'run_summary.txt'), 'w', encoding='utf-8') as fh:
         fh.write('\n'.join(log) + '\n')
     say('\nwrote run_summary.txt')
 
