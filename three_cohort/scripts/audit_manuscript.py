@@ -236,6 +236,33 @@ else:
     FAIL.append(("refs count", f"{len(refs)} listed vs {len(order)} cited"))
     print(f"  FAIL  reference count                        {len(refs)} vs {len(order)}")
 
+# ------------------------------------------------- additional-file captions
+# BMC technical check requires: every additional table/figure cited in the
+# text AND captioned in the Additional files section.
+for i in range(1, 6):
+    cap = f"Additional file 1: Table S{i}."
+    n_cite = txt.count(f"Table S{i}")
+    N += 1
+    if cap in txt:
+        print(f"  PASS  {'caption for Table S%d'%i:48s} present")
+    else:
+        FAIL.append((f"Table S{i} caption", cap))
+        print(f"  FAIL  {'caption for Table S%d'%i:48s} {cap!r} NOT FOUND")
+    N += 1
+    if n_cite >= 2:  # caption + at least one in-text citation
+        print(f"  PASS  {'Table S%d cited in text'%i:48s} {n_cite} occurrences")
+    else:
+        FAIL.append((f"Table S{i} citation", f"only {n_cite} occurrence(s)"))
+        print(f"  FAIL  {'Table S%d cited in text'%i:48s} only {n_cite} occurrence(s)")
+for i in range(1, 4):
+    cap = f"Additional file 2: Figure S{i}."
+    N += 1
+    if cap in txt:
+        print(f"  PASS  {'caption for Figure S%d'%i:48s} present")
+    else:
+        FAIL.append((f"Figure S{i} caption", cap))
+        print(f"  FAIL  {'caption for Figure S%d'%i:48s} {cap!r} NOT FOUND")
+
 # ---------------------------------------------------------------- abstract
 ab = txt.split("## Abstract")[1].split("**Keywords:**")[0].replace("**", "")
 nw = len(ab.split())
